@@ -1,6 +1,7 @@
 .App {
   font-family: sans-serif;
   text-align: center;
+  background-color: #ffff;
 }
 
 .Icons * {
@@ -15,8 +16,8 @@
 }
 
 .Icons * :hover {
-  background-color: rgb(255, 255, 255);
-  color: #4169e1;
+  color: #0000ff;
+  background-color: #e0ffff;
 }
 
 .TopMenu {
@@ -30,4 +31,15 @@
 .IconText {
   font-family: sans-serif;
   font-weight: bolder;
+}
+
+.Notice {
+  border-radius: 100px black;
+}
+
+.NoticeArea {
+  resize: none;
+  width: 600px;
+  height: 100px;
+  overflow-y: scroll;
 }

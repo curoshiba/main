@@ -1,0 +1,14 @@
+.Hed {
+  background-color: darkgrey;
+  color: #ffff;
+  height: 60px;
+}
+
+.title {
+  padding: 8px;
+  text-align: left;
+}
+
+.Logout {
+  text-align: right;
+}

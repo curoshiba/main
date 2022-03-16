@@ -9,16 +9,26 @@ import {
   FaClock,
   FaMoneyBillAlt
 } from "react-icons/fa";
+import { GrLogout } from "react-icons/gr";
 
-import { Nav } from "./components/navbar";
+import { Hed } from "./components/navbar/navbar.jsx";
+import "./components/navbar/nav.css";
 
 const App = () => {
-  const IconSize = 150;
+  const IconSize = 120;
   return (
     //メイン画面
 
     <>
       <div className="App">
+        <header className="Hed">
+          <h1 className="title">Naxion</h1>
+          <div className="Logout">
+            <label>ログアウト</label>
+            <GrLogout className />
+          </div>
+        </header>
+
         <h1>処理選択</h1>
         <div className="Icons">
           <div className="TopMenu">
@@ -28,7 +38,7 @@ const App = () => {
             </div>
             <div className="ButtonIcon">
               <FaCheckSquare size={IconSize} />
-              <div className="IconText">シフト提出</div>
+              <div className="IconText">案件表</div>
             </div>
             <div className="ButtonIcon">
               <FaFileAlt size={IconSize} />
@@ -57,6 +67,12 @@ const App = () => {
               <div className="IconText">シフト提出</div>
             </div>
           </div>
+        </div>
+        <div className="Notice">
+          <h2>お知らせ</h2>
+          <textarea className="NoticeArea" disabled>
+            ★お知らせの内容です
+          </textarea>
         </div>
       </div>
     </>
