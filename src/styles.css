@@ -4,5 +4,30 @@
 }
 
 .Icons * {
-  margin: 1.5em;
+  margin: 1em;
+
+  text-align: center;
+}
+
+.Icons {
+  display: inline-block;
+  text-align: center;
+}
+
+.Icons * :hover {
+  background-color: rgb(255, 255, 255);
+  color: #4169e1;
+}
+
+.TopMenu {
+  display: flex;
+}
+
+.UnderMenu {
+  display: flex;
+}
+
+.IconText {
+  font-family: sans-serif;
+  font-weight: bolder;
 }
