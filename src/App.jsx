@@ -1,8 +1,14 @@
 import "./styles.css";
-import { FaBook } from "react-icons/fa";
-import { FaCheckSquare } from "react-icons/fa";
-import { FaFileAlt } from "react-icons/fa";
-import { FaList } from "react-icons/fa";
+import {
+  FaBook,
+  FaCheckSquare,
+  FaFileAlt,
+  FaList,
+  FaRegCalendarAlt,
+  FaInfoCircle,
+  FaClock,
+  FaMoneyBillAlt
+} from "react-icons/fa";
 
 import { Nav } from "./components/navbar";
 
@@ -12,13 +18,20 @@ const App = () => {
     <>
       <div className="App">
         <h1>処理選択</h1>
-        <div className="Topmenu">
-          <FaBook />
-          <FaCheckSquare />
-          <FaFileAlt />
-          <FaList />
+        <div className="Icons">
+          <div className="TopMenu">
+            <FaBook />
+            <FaCheckSquare />
+            <FaFileAlt />
+            <FaList />
+          </div>
+          <div UnderMenu>
+            <FaMoneyBillAlt />
+            <FaInfoCircle />
+            <FaRegCalendarAlt />
+            <FaClock />
+          </div>
         </div>
-        <div></div>
       </div>
     </>
   );
