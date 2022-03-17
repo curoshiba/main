@@ -15,6 +15,11 @@
   text-align: center;
 }
 
+.ButtonIcon {
+  border: 2px solid #000000;
+  border-radius: 10px;
+}
+
 .Icons * :hover {
   color: #0000ff;
   background-color: #e0ffff;
