@@ -15,8 +15,8 @@ export const Main = (props) => {
   const { iconsize } = props;
   return (
     <>
-      <h1>処理選択</h1>
       <div className="Icons">
+        <h1>処理選択</h1>
         <div className="TopMenu">
           <div className="ButtonIcon">
             <FaBook size={iconsize} />

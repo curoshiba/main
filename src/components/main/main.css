@@ -5,9 +5,8 @@
 }
 
 .Icons * {
-  margin: 1em;
-
   text-align: center;
+  margin: 1em;
 }
 
 .Icons {
@@ -47,4 +46,8 @@
   width: 600px;
   height: 100px;
   overflow-y: scroll;
+}
+
+.BttomNav {
+  text-align: center;
 }
