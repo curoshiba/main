@@ -1,0 +1,18 @@
+.appBar {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+}
+
+.menuText {
+  display: flex;
+  flex: 0;
+}
+
+.logoutButton {
+  flex: 0;
+}
+
+.topButton {
+  align-self: cente;
+}

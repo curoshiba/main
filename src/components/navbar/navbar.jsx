@@ -1,6 +1,5 @@
 import * as React from "react";
 import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
@@ -9,6 +8,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import { ThemeProvider } from "@mui/material/styles";
 import { TopButton } from "../../assets/topbutton";
 import { theme } from "../../generalColor";
+import "./navbar.css";
 
 export const Hed = () => {
   console.log(TopButton);
@@ -18,26 +18,34 @@ export const Hed = () => {
   return (
     <>
       <ThemeProvider theme={theme}>
-        <Box sx={{ flexGrow: 1 }}>
-          <AppBar position="static" color="primary">
-            <Toolbar>
+        <AppBar
+          position="static"
+          color="primary"
+          enableColorOnDark
+          className="appBar"
+        >
+          <Toolbar>
+            <div className="menuText">
               <IconButton
                 size="large"
                 edge="start"
                 color="inherit"
                 aria-label="menu"
                 sx={{ mr: 2 }}
+                className="menu"
               >
                 <MenuIcon />
               </IconButton>
-              <Typography variant="h4" component="div">
-                Naxion
+              <Typography variant="h4" component="div" className="naxionText">
+                title
               </Typography>
-              <TopButton />
-              <Button color="inherit">Login</Button>
-            </Toolbar>
-          </AppBar>
-        </Box>
+            </div>
+            <TopButton className="topButton" />
+            <Button color="inherit" className="logoutButton">
+              Logout
+            </Button>
+          </Toolbar>
+        </AppBar>
       </ThemeProvider>
     </>
   );
