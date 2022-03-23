@@ -1,7 +1,7 @@
 import React from "react";
-import { BrowserRouter, Route } from "react-router-dom";
 import { Hed } from "./components/navbar/navbar.jsx";
 import { Main } from "./view/main";
+import { Salary } from "./view/salary";
 
 const App = () => {
   const IconSize = 120;
@@ -9,7 +9,7 @@ const App = () => {
     <>
       <Hed MenuName="TOP" /> {/*ヘッダ―*/}
       <div className="App">
-        <Main iconsize={IconSize} /> {/*メイン画面*/}
+        <Salary /> {/*メイン画面*/}
       </div>
     </>
   );
