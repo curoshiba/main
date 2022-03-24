@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import Button from "@material-ui/core/Button";
-import { TextField } from "@material-ui/core";
+import TextField from "@material-ui/core/TextField";
+import createDate from "../assets/createDate";
 
 // カラム
 const columns = [
@@ -111,25 +112,22 @@ const rows = [
   { id: 11, workday: "2022/03/22", mattername: "水元ワクチン" },
   { id: 12, workday: "2022/03/22", mattername: "水元ワクチン" }
 ];
-
+//初期値
+const ini = {
+  workday: "",
+  mattername: "",
+  place: "",
+  expectDate: "",
+  sumprice: 0,
+  status: { complete: 1 },
+  updateTime: createDate(),
+  memo: ""
+};
 export const Salary = () => {
-  const [state, setState] = useState();
-  //初期値
-  const ini = {
-    workday: "",
-    mattername: "",
-    place: ""
-  };
-  //タイムスタンプ用の時刻
-  const ymd = new Date();
-  const yyyy = ymd.getFullYear();
-  const M = ymd.getMonth() + 1;
-  const dd = ymd.getDate();
-  const hh = ymd.getHours();
-  const mm = ymd.getMinutes();
-  const concatYMD = `${yyyy}/${M}/`;
+  const [state, setState] = useState(ini);
 
-  console.log(hh);
+  //タイムスタンプ用の時刻
+  console.log(createDate());
   //入力内容をstateへ反映させる関数
   const handleChange = (event) => {
     setState(event.target.value);
@@ -141,13 +139,33 @@ export const Salary = () => {
         <DataGrid rows={rows} columns={columns} pageSize={10} />
       </div>
       <h3>勤務日</h3>
-      <TextField required id="workday" label="必須" variant="outlined" />
+      <TextField
+        required
+        id="workday"
+        label="必須"
+        variant="outlined"
+        type="date"
+      />
       <h3>案件名</h3>
       <TextField required id="mattername" label="必須" variant="outlined" />
       <h3>勤務地</h3>
       <TextField required id="place" label="必須" variant="outlined" />
       <h3>支払予定日</h3>
+      <TextField
+        required
+        id="expectDate"
+        label="必須"
+        variant="outlined"
+        type="date"
+      />
       <h3>合計支給額</h3>
+      <TextField
+        required
+        id="place"
+        label="必須"
+        variant="outlined"
+        type="number"
+      />
       <h3>ステータス</h3>
       <h3>備考</h3>
       <TextField
