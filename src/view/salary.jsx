@@ -1,6 +1,7 @@
-import * as React from "react";
+import React, { useState } from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import Button from "@material-ui/core/Button";
+import { TextField } from "@material-ui/core";
 
 // カラム
 const columns = [
@@ -11,23 +12,55 @@ const columns = [
     sortable: true,
     width: 100
   },
-  { field: "workday", headerName: "勤務日", type: "date", width: 150 },
+  {
+    field: "workday",
+    headerName: "勤務日",
+    type: "date",
+    editable: true,
+    width: 150
+  },
   {
     field: "mattername",
     headerName: "案件名",
     sortable: false,
-    width: 250,
-    minWidth: 250,
-    maxWidth: 500,
-    resizable: true,
+    width: 400,
     editable: true
+  },
+  {
+    field: "place",
+    headerName: "勤務地",
+    sortable: false,
+    width: 200,
+    editable: true
+  },
+  {
+    field: "expectDate",
+    headerName: "支払予定日",
+    sortable: false,
+    type: "date",
+    width: 150,
+    editable: true
+  },
+  {
+    field: "sumprice",
+    headerName: "合計支給額",
+    sortable: false,
+    width: 150,
+    editable: true
+  },
+  {
+    field: "status",
+    headerName: "ステータス",
+    sortable: true,
+    width: 150,
+    editable: false
   },
   // 削除ボタン
   {
     field: "deleteBtn",
     headerName: "削除",
     sortable: false,
-    width: 90,
+    width: 100,
     disableClickEventBubbling: true,
     renderCell: (params) => (
       <Button variant="contained" color="primary">
@@ -40,17 +73,29 @@ const columns = [
     field: "editBtn",
     headerName: "詳細",
     sortable: false,
-    width: 90,
+    width: 100,
     disableClickEventBubbling: true,
     renderCell: (params) => (
       <Button variant="contained" color="primary">
         詳細
       </Button>
     )
+  },
+  {
+    field: "updateTime",
+    headerName: "更新日時",
+    type: "datetime",
+    editable: false,
+    width: 150
+  },
+  {
+    field: "memo",
+    headerName: "備考",
+    editable: false,
+    width: 400
   }
 ];
 
-const [state, setState] = React.useState();
 // データ
 const rows = [
   { id: 1, workday: "2022/03/22", mattername: "水元ワクチン" },
@@ -68,12 +113,52 @@ const rows = [
 ];
 
 export const Salary = () => {
+  const [state, setState] = useState();
+  //初期値
+  const ini = {
+    workday: "",
+    mattername: "",
+    place: ""
+  };
+  //タイムスタンプ用の時刻
+  const ymd = new Date();
+  const yyyy = ymd.getFullYear();
+  const M = ymd.getMonth() + 1;
+  const dd = ymd.getDate();
+  const hh = ymd.getHours();
+  const mm = ymd.getMinutes();
+  const concatYMD = `${yyyy}/${M}/`;
+
+  console.log(hh);
+  //入力内容をstateへ反映させる関数
+  const handleChange = (event) => {
+    setState(event.target.value);
+  };
   return (
     <>
       <h1>給与一覧</h1>
       <div style={{ height: 800, width: "100%" }}>
         <DataGrid rows={rows} columns={columns} pageSize={10} />
       </div>
+      <h3>勤務日</h3>
+      <TextField required id="workday" label="必須" variant="outlined" />
+      <h3>案件名</h3>
+      <TextField required id="mattername" label="必須" variant="outlined" />
+      <h3>勤務地</h3>
+      <TextField required id="place" label="必須" variant="outlined" />
+      <h3>支払予定日</h3>
+      <h3>合計支給額</h3>
+      <h3>ステータス</h3>
+      <h3>備考</h3>
+      <TextField
+        id="filled-multiline-flexible"
+        label="Multiline"
+        multiline
+        maxRows={4}
+        value={state}
+        onChange={handleChange}
+        variant="filled"
+      />
     </>
   );
 };

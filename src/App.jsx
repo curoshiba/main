@@ -5,6 +5,7 @@ import { Salary } from "./view/salary";
 
 const App = () => {
   const IconSize = 120;
+
   return (
     <>
       <Hed MenuName="TOP" /> {/*ヘッダ―*/}
