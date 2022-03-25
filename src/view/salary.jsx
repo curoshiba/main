@@ -3,6 +3,7 @@ import { DataGrid } from "@mui/x-data-grid";
 import { TextField, Box, Button } from "@material-ui/core";
 import createDate from "../assets/createDate";
 import { DeleteIcon } from "@mui/icons-material";
+import { spacing } from "@mui/system";
 
 // カラム
 const columns = [
@@ -113,21 +114,16 @@ const rows = [
   { id: 12, workday: "2022/03/22", mattername: "水元ワクチン" }
 ];
 //初期値
-const ini = {
-  workday: "",
-  mattername: "",
-  place: "",
-  expectDate: "",
-  sumprice: 0,
-  status: { complete: 1 },
-  updateTime: createDate(),
-  memo: ""
-};
-export const Salary = () => {
+
+export const Salary = (props) => {
   const [state, setState] = useState(ini);
+  const onClickAdd = () => {
+    const new_workday = state.workday;
+    setState(...state);
+  };
 
   //タイムスタンプ用の時刻
-  console.log(createDate());
+
   //入力内容をstateへ反映させる関数
   const handleChange = (event) => {
     setState(event.target.value);
@@ -140,7 +136,14 @@ export const Salary = () => {
       </div>
       <Box sx={{ width: 500, textAlign: "left" }}>
         <h3>勤務日</h3>
-        <TextField required id="workday" variant="outlined" type="date" />
+        <TextField
+          required
+          id="workday"
+          variant="outlined"
+          type="date"
+          value={new_workday}
+          onChange={(event) => setState(event.target.value)}
+        />
         <h3>案件名</h3>
         <TextField
           required
@@ -175,10 +178,28 @@ export const Salary = () => {
           variant="outlined"
           fullWidth
         />
-        <Button variant="outlined" color="secondary">
-          作成
-        </Button>
+        <Box sx={{ mt: 5 }}>
+          <Button
+            variant="outlined"
+            color="secondary"
+            size="large"
+            onClick={onClickAdd}
+          >
+            作成
+          </Button>
+        </Box>
       </Box>
     </>
   );
+};
+//初期値
+Salary.defaultProps = {
+  workday: "",
+  mattername: "",
+  place: "",
+  expectDate: "",
+  sumprice: 0,
+  status: { complete: 1 },
+  updateTime: createDate(),
+  memo: ""
 };
