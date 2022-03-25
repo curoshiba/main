@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { DataGrid } from "@mui/x-data-grid";
-import Button from "@material-ui/core/Button";
-import TextField from "@material-ui/core/TextField";
+import { TextField, Box, Button } from "@material-ui/core";
 import createDate from "../assets/createDate";
+import { DeleteIcon } from "@mui/icons-material";
 
 // カラム
 const columns = [
@@ -138,45 +138,47 @@ export const Salary = () => {
       <div style={{ height: 800, width: "100%" }}>
         <DataGrid rows={rows} columns={columns} pageSize={10} />
       </div>
-      <h3>勤務日</h3>
-      <TextField
-        required
-        id="workday"
-        label="必須"
-        variant="outlined"
-        type="date"
-      />
-      <h3>案件名</h3>
-      <TextField required id="mattername" label="必須" variant="outlined" />
-      <h3>勤務地</h3>
-      <TextField required id="place" label="必須" variant="outlined" />
-      <h3>支払予定日</h3>
-      <TextField
-        required
-        id="expectDate"
-        label="必須"
-        variant="outlined"
-        type="date"
-      />
-      <h3>合計支給額</h3>
-      <TextField
-        required
-        id="place"
-        label="必須"
-        variant="outlined"
-        type="number"
-      />
-      <h3>ステータス</h3>
-      <h3>備考</h3>
-      <TextField
-        id="filled-multiline-flexible"
-        label="Multiline"
-        multiline
-        maxRows={4}
-        value={state}
-        onChange={handleChange}
-        variant="filled"
-      />
+      <Box sx={{ width: 500, textAlign: "left" }}>
+        <h3>勤務日</h3>
+        <TextField required id="workday" variant="outlined" type="date" />
+        <h3>案件名</h3>
+        <TextField
+          required
+          id="mattername"
+          label="必須"
+          variant="outlined"
+          fullWidth
+        />
+        <h3>勤務地</h3>
+        <TextField
+          required
+          id="place"
+          label="必須"
+          variant="outlined"
+          fullWidth
+        />
+        <h3>支払予定日</h3>
+        <TextField required id="expectDate" variant="outlined" type="date" />
+        <h3>合計支給額</h3>
+        <TextField
+          required
+          id="place"
+          label="必須"
+          variant="outlined"
+          type="number"
+        />
+        <h3>備考</h3>
+        <TextField
+          id="memo"
+          multiline
+          maxRows={4}
+          variant="outlined"
+          fullWidth
+        />
+        <Button variant="outlined" color="secondary">
+          作成
+        </Button>
+      </Box>
     </>
   );
 };
