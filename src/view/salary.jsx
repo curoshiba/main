@@ -1,133 +1,139 @@
 import React, { useState } from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import { TextField, Box, Button } from "@material-ui/core";
-import createDate from "../assets/createDate";
+import createDate from "../../assets/createDate";
 import { DeleteIcon } from "@mui/icons-material";
 import { spacing } from "@mui/system";
 
-// カラム
-const columns = [
-  {
-    field: "id",
-    headerName: "ID",
-    description: "管理用IDのためスタッフIDとは紐づいておりません",
-    sortable: true,
-    width: 100
-  },
-  {
-    field: "workday",
-    headerName: "勤務日",
-    type: "date",
-    editable: true,
-    width: 150
-  },
-  {
-    field: "mattername",
-    headerName: "案件名",
-    sortable: false,
-    width: 400,
-    editable: true
-  },
-  {
-    field: "place",
-    headerName: "勤務地",
-    sortable: false,
-    width: 200,
-    editable: true
-  },
-  {
-    field: "expectDate",
-    headerName: "支払予定日",
-    sortable: false,
-    type: "date",
-    width: 150,
-    editable: true
-  },
-  {
-    field: "sumprice",
-    headerName: "合計支給額",
-    sortable: false,
-    width: 150,
-    editable: true
-  },
-  {
-    field: "status",
-    headerName: "ステータス",
-    sortable: true,
-    width: 150,
-    editable: false
-  },
-  // 削除ボタン
-  {
-    field: "deleteBtn",
-    headerName: "削除",
-    sortable: false,
-    width: 100,
-    disableClickEventBubbling: true,
-    renderCell: (params) => (
-      <Button variant="contained" color="primary">
-        削除
-      </Button>
-    )
-  },
-  // 詳細ボタン
-  {
-    field: "editBtn",
-    headerName: "詳細",
-    sortable: false,
-    width: 100,
-    disableClickEventBubbling: true,
-    renderCell: (params) => (
-      <Button variant="contained" color="primary">
-        詳細
-      </Button>
-    )
-  },
-  {
-    field: "updateTime",
-    headerName: "更新日時",
-    type: "datetime",
-    editable: false,
-    width: 150
-  },
-  {
-    field: "memo",
-    headerName: "備考",
-    editable: false,
-    width: 400
-  }
-];
-
-// データ
-const rows = [
-  { id: 1, workday: "2022/03/22", mattername: "水元ワクチン" },
-  { id: 2, workday: "2022/03/22", mattername: "水元ワクチン" },
-  { id: 3, workday: "2022/03/22", mattername: "水元ワクチン" },
-  { id: 4, workday: "2022/03/22", mattername: "水元ワクチン" },
-  { id: 5, workday: "2022/03/22", mattername: "水元ワクチン" },
-  { id: 6, workday: "2022/03/22", mattername: "水元ワクチン" },
-  { id: 7, workday: "2022/03/22", mattername: "水元ワクチン" },
-  { id: 8, workday: "2022/03/22", mattername: "水元ワクチン" },
-  { id: 9, workday: "2022/03/22", mattername: "水元ワクチン" },
-  { id: 10, workday: "2022/03/22", mattername: "水元ワクチン" },
-  { id: 11, workday: "2022/03/22", mattername: "水元ワクチン" },
-  { id: 12, workday: "2022/03/22", mattername: "水元ワクチン" }
-];
 //初期値
 
 export const Salary = (props) => {
-  const [state, setState] = useState(ini);
+  const [state, setState] = useState([]); //現在の配列のステイト
+  const [newState, setNewState] = useState(props); //配列へ追加するためのオブジェクトを管理するステイト
+  const {
+    ID,
+    workday,
+    mattername,
+    place,
+    expectDate,
+    sumprice,
+    status,
+    updateTime,
+    memo
+  } = newState; //newStateを分割代入
+
+  const onChangeState = (event) => {
+    const target = event.target;
+    const value = target.value;
+    const name = target.name;
+    setNewState({ ...newState, [name]: value });
+  };
   const onClickAdd = () => {
-    const new_workday = state.workday;
-    setState(...state);
+    //idを計算する
+    const newId = "1";
+    setNewState({ ...newState, ID: newId }); //idをオブジェクトへ追加
+    console.log(newState);
+    const newArray = [...state, newState]; //stateの配列へ新しいオブジェクトを追加
+    setState(newArray); //stateを更新
+    console.log(state);
+    setNewState(props); //作成ボタン押下後初期化
   };
+  //console.log(state);
+  // データ
+  const rows = [{ id: 100 }];
+  // カラム
+  const columns = [
+    {
+      field: "id",
+      headerName: "ID",
+      description: "管理用IDのためスタッフIDとは紐づいておりません",
+      sortable: true,
+      width: 100
+    },
+    {
+      field: "workday",
+      headerName: "勤務日",
+      type: "date",
+      editable: true,
+      width: 150
+    },
+    {
+      field: "mattername",
+      headerName: "案件名",
+      sortable: false,
+      width: 400,
+      editable: true
+    },
+    {
+      field: "place",
+      headerName: "勤務地",
+      sortable: false,
+      width: 200,
+      editable: true
+    },
+    {
+      field: "expectDate",
+      headerName: "支払予定日",
+      sortable: false,
+      type: "date",
+      width: 150,
+      editable: true
+    },
+    {
+      field: "sumprice",
+      headerName: "合計支給額",
+      sortable: false,
+      width: 150,
+      editable: true
+    },
+    {
+      field: "status",
+      headerName: "ステータス",
+      sortable: true,
+      width: 150,
+      editable: false
+    },
+    // 削除ボタン
+    {
+      field: "deleteBtn",
+      headerName: "削除",
+      sortable: false,
+      width: 100,
+      disableClickEventBubbling: true,
+      renderCell: (params) => (
+        <Button variant="contained" color="primary">
+          削除
+        </Button>
+      )
+    },
+    // 詳細ボタン
+    {
+      field: "editBtn",
+      headerName: "詳細",
+      sortable: false,
+      width: 100,
+      disableClickEventBubbling: true,
+      renderCell: (params) => (
+        <Button variant="contained" color="primary">
+          詳細
+        </Button>
+      )
+    },
+    {
+      field: "updateTime",
+      headerName: "更新日時",
+      type: "datetime",
+      editable: false,
+      width: 150
+    },
+    {
+      field: "memo",
+      headerName: "備考",
+      editable: false,
+      width: 400
+    }
+  ];
 
-  //タイムスタンプ用の時刻
-
-  //入力内容をstateへ反映させる関数
-  const handleChange = (event) => {
-    setState(event.target.value);
-  };
   return (
     <>
       <h1>給与一覧</h1>
@@ -138,45 +144,60 @@ export const Salary = (props) => {
         <h3>勤務日</h3>
         <TextField
           required
-          id="workday"
+          name="workday"
           variant="outlined"
           type="date"
-          value={new_workday}
-          onChange={(event) => setState(event.target.value)}
+          value={workday}
+          onChange={onChangeState}
         />
         <h3>案件名</h3>
         <TextField
           required
-          id="mattername"
+          name="mattername"
           label="必須"
           variant="outlined"
           fullWidth
+          value={mattername}
+          onChange={onChangeState}
         />
         <h3>勤務地</h3>
         <TextField
           required
-          id="place"
+          name="place"
           label="必須"
           variant="outlined"
           fullWidth
+          value={place}
+          onChange={onChangeState}
         />
         <h3>支払予定日</h3>
-        <TextField required id="expectDate" variant="outlined" type="date" />
+        <TextField
+          required
+          name="expectDate"
+          variant="outlined"
+          type="date"
+          value={expectDate}
+          onChange={onChangeState}
+        />
         <h3>合計支給額</h3>
         <TextField
           required
-          id="place"
+          name="sumprice"
           label="必須"
           variant="outlined"
           type="number"
+          value={sumprice}
+          onChange={onChangeState}
         />
         <h3>備考</h3>
         <TextField
-          id="memo"
+          name="memo"
           multiline
           maxRows={4}
           variant="outlined"
           fullWidth
+          value={memo}
+          onChange={onChangeState}
         />
         <Box sx={{ mt: 5 }}>
           <Button
@@ -194,12 +215,13 @@ export const Salary = (props) => {
 };
 //初期値
 Salary.defaultProps = {
+  ID: "",
   workday: "",
   mattername: "",
   place: "",
   expectDate: "",
   sumprice: 0,
-  status: { complete: 1 },
+  status: 1,
   updateTime: createDate(),
   memo: ""
 };
