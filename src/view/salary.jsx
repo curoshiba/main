@@ -2,8 +2,6 @@ import React, { useState, useEffect } from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import { TextField, Box, Button } from "@material-ui/core";
 import createDate from "../assets/createDate";
-import { DeleteIcon } from "@mui/icons-material";
-import { spacing } from "@mui/system";
 
 //初期値
 
@@ -17,8 +15,6 @@ export const Salary = (props) => {
     place,
     expectDate,
     sumprice,
-    status,
-    updateTime,
     memo
   } = newState; //newStateを分割代入
 
@@ -29,23 +25,18 @@ export const Salary = (props) => {
     setNewState({ ...newState, [name]: value });
   };
 
-  const last = state.slice(-1)[0]; //最後の要素を取得
-  const lastID = last.ID; //最後の要素のIDを取得
-
   const onClickAdd = () => {
-    //idを計算する
-    let newId = 1;
-    if (!state.length === 0) newId = lastID + 1;
-    console.log();
-    setNewState({ ...newState, ID: newId }); //idをオブジェクトへ追加
+    //ID発行の関数
+    const lastid = state.length === 0 ? 1 : state.slice(-1)[0].ID + 1; //state配列最後の要素のIDを取得
+    setNewState({ ...newState, ID: lastid }); //オブジェクトのIDを更新
+    console.log(newState);
     const newArray = [...state, newState]; //stateの配列へ新しいオブジェクトを追加
     setState(newArray); //stateを更新
     setNewState(props); //作成ボタン押下後初期化
   };
-  //console.log(newState);
+
   useEffect(() => {
     console.log(state);
-    //console.log(newId);
   }, [state]);
 
   // データ
