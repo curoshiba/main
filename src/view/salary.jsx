@@ -30,14 +30,13 @@ export const Salary = (props) => {
   };
 
   const last = state.slice(-1)[0]; //最後の要素を取得
-  const lastID = last.ID;
+  const lastID = last.ID; //最後の要素のIDを取得
 
   const onClickAdd = () => {
     //idを計算する
     let newId = 1;
-
-    //state.length === 0 || newId = last.ID + 1;
-
+    if (!state.length === 0) newId = lastID + 1;
+    console.log();
     setNewState({ ...newState, ID: newId }); //idをオブジェクトへ追加
     const newArray = [...state, newState]; //stateの配列へ新しいオブジェクトを追加
     setState(newArray); //stateを更新
@@ -45,8 +44,8 @@ export const Salary = (props) => {
   };
   //console.log(newState);
   useEffect(() => {
-    //console.log(state);
-    console.log(lastID);
+    console.log(state);
+    //console.log(newId);
   }, [state]);
 
   // データ
@@ -225,7 +224,7 @@ export const Salary = (props) => {
 };
 //初期値
 Salary.defaultProps = {
-  ID: "",
+  ID: 0,
   workday: "",
   mattername: "",
   place: "",
