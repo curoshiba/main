@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import { TextField, Box, Button } from "@material-ui/core";
-import createDate from "../../assets/createDate";
+import createDate from "../assets/createDate";
 import { DeleteIcon } from "@mui/icons-material";
 import { spacing } from "@mui/system";
 
@@ -28,17 +28,27 @@ export const Salary = (props) => {
     const name = target.name;
     setNewState({ ...newState, [name]: value });
   };
+
+  const last = state.slice(-1)[0]; //最後の要素を取得
+  const lastID = last.ID;
+
   const onClickAdd = () => {
     //idを計算する
-    const newId = "1";
+    let newId = 1;
+
+    //state.length === 0 || newId = last.ID + 1;
+
     setNewState({ ...newState, ID: newId }); //idをオブジェクトへ追加
-    console.log(newState);
     const newArray = [...state, newState]; //stateの配列へ新しいオブジェクトを追加
     setState(newArray); //stateを更新
-    console.log(state);
     setNewState(props); //作成ボタン押下後初期化
   };
-  //console.log(state);
+  //console.log(newState);
+  useEffect(() => {
+    //console.log(state);
+    console.log(lastID);
+  }, [state]);
+
   // データ
   const rows = [{ id: 100 }];
   // カラム
