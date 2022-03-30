@@ -9,7 +9,7 @@ export const Salary = (props) => {
   const [state, setState] = useState([]); //現在の配列のステイト
   const [newState, setNewState] = useState(props); //配列へ追加するためのオブジェクトを管理するステイト
   const {
-    ID,
+    id,
     workday,
     mattername,
     place,
@@ -26,13 +26,21 @@ export const Salary = (props) => {
   };
 
   const onClickAdd = () => {
+    //e.preventDefault();
     //ID発行の関数
-    const lastid = state.length === 0 ? 1 : state.slice(-1)[0].ID + 1; //state配列最後の要素のIDを取得
-    setNewState({ ...newState, ID: lastid }); //オブジェクトのIDを更新
-    console.log(newState);
-    const newArray = [...state, newState]; //stateの配列へ新しいオブジェクトを追加
-    setState(newArray); //stateを更新
+    const lastid = state.length === 0 ? 1 : state.slice(-1)[0].id + 1; //state配列最後の要素のIDを取得
+    const aaa = { ...newState, id: lastid }; //オブジェクトのIDを更新
+    const newArray = [...state, aaa]; //stateの配列へ新しいオブジェクトを追加
+    setState(newArray);
     setNewState(props); //作成ボタン押下後初期化
+  };
+
+  //一括削除
+  const onClickAllDelete = () => {
+    const cnt = state.length;
+    const yn = window.confirm(cnt + "件全て削除してよろしいですか？");
+    const result = yn ? setState([]) : state;
+    return result;
   };
 
   useEffect(() => {
@@ -40,7 +48,7 @@ export const Salary = (props) => {
   }, [state]);
 
   // データ
-  const rows = [{ id: 100 }];
+  const rows = state;
   // カラム
   const columns = [
     {
@@ -209,13 +217,23 @@ export const Salary = (props) => {
             作成
           </Button>
         </Box>
+        <Box sx={{ mt: 5 }}>
+          <Button
+            variant="outlined"
+            color="primary"
+            size="large"
+            onClick={onClickAllDelete}
+          >
+            一括削除
+          </Button>
+        </Box>
       </Box>
     </>
   );
 };
 //初期値
 Salary.defaultProps = {
-  ID: 0,
+  id: 0,
   workday: "",
   mattername: "",
   place: "",
