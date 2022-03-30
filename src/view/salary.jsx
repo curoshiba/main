@@ -3,21 +3,23 @@ import { DataGrid } from "@mui/x-data-grid";
 import { TextField, Box, Button } from "@material-ui/core";
 import createDate from "../assets/createDate";
 
-//初期値
-
 export const Salary = (props) => {
-  const [state, setState] = useState([]); //現在の配列のステイト
-  const [newState, setNewState] = useState(props); //配列へ追加するためのオブジェクトを管理するステイト
-  const {
-    id,
-    workday,
-    mattername,
-    place,
-    expectDate,
-    sumprice,
-    memo
-  } = newState; //newStateを分割代入
-
+  const [state, setState] = useState([]); //テーブルへ表示させる配列
+  const [newState, setNewState] = useState(props); //state配列へ追加するためのオブジェクトを管理するステイト
+  const { workday, mattername, place, expectDate, sumprice, memo } = newState; //newStateを分割代入
+  /********************************************************
+   * 概要：テキストエリア入力時newStateオブジェクトを更新する
+   * 関数名：onChangeState
+   * 引数：eventオブジェクト
+   * 戻り値：なし
+   * <detail>
+   * 1.eventオブジェクトからイベント発生元の値を取得する変数へ格納
+   * 2.eventオブジェクトからイベント発生元のname属性を取得
+   * 3.newStateオブジェクトをコピーし項番2のキーの値を項番1で更新する
+   * </detail>
+   * 作成日：2022/03/30
+   * 作成者：渡邉
+   ********************************************************/
   const onChangeState = (event) => {
     const target = event.target;
     const value = target.value;
@@ -25,17 +27,51 @@ export const Salary = (props) => {
     setNewState({ ...newState, [name]: value });
   };
 
+  /********************************************************
+   * 概要：作成ボタンクリック後に入力データをテーブルへ追加
+   * 関数名：onClickadd
+   * 引数：なし
+   * 戻り値：なし
+   * <detail>
+   * 1.state配列末尾の要素のIDを取得し1増加させた値を格納
+   * 2.newStateオブジェクトの合計支払額に"円"を付加する
+   * 3.ボタン押下時のnewstateオブジェクトをコピーし
+   *    IDのみを項番1の値で更新し新たなオブジェクトへ格納
+   * 4.ボタン押下時の日時を取得し項番3の配列をコピーし
+   *    更新日時のみ更新し新たなオブジェクトへ格納
+   * 5.項番4のオブジェクトをコピーし合計支払額のみ更新し新たなオブジェクトへ格納
+   * 6.state配列をコピーし項番5のオブジェクトを追加し新たな配列へ格納
+   * 7.state配列を項番5の配列で更新する
+   * 8.newstateオブジェクトを初期化
+   * </detail>
+   * 作成日：2022/03/30
+   * 作成者：渡邉
+   ********************************************************/
   const onClickAdd = () => {
-    //e.preventDefault();
     //ID発行の関数
-    const lastid = state.length === 0 ? 1 : state.slice(-1)[0].id + 1; //state配列最後の要素のIDを取得
-    const aaa = { ...newState, id: lastid }; //オブジェクトのIDを更新
-    const newArray = [...state, aaa]; //stateの配列へ新しいオブジェクトを追加
+    const lastid = state.length === 0 ? 1 : state.slice(-1)[0].id + 1; //項番1
+    const concaten = sumprice + "円";
+    const addID = { ...newState, id: lastid };
+    const updateymd = { ...addID, updateTime: createDate() };
+    const adden = { ...updateymd, sumprice: concaten };
+    const newArray = [...state, adden];
     setState(newArray);
-    setNewState(props); //作成ボタン押下後初期化
+    setNewState(props);
   };
 
-  //一括削除
+  /********************************************************
+   * 概要：テーブルを一括で削除（stateを空配列）
+   * 関数名：onClickAllDelete
+   * 引数：なし
+   * 戻り値：なし
+   * <detail>
+   * 1.state配列の要素数を取得
+   * 2.項番1の値を含めて削除確認画面を表示
+   * 3.項番2で「true」が返って来た場合、state配列を空に初期化
+   * </detai>
+   * 作成日：2022/03/30
+   * 作成者：渡邉
+   ********************************************************/
   const onClickAllDelete = () => {
     const cnt = state.length;
     const yn = window.confirm(cnt + "件全て削除してよろしいですか？");
@@ -43,13 +79,43 @@ export const Salary = (props) => {
     return result;
   };
 
+  /********************************************************
+   * 概要：削除ボタンクリック後に対象レコードを削除
+   * 関数名：onClickdelete
+   * 引数：なし
+   * 戻り値：なし
+   * <detail>
+   * 1.クリックされた削除ボタンのセルのidのインデックスを検索し変数へ格納
+   * 2.
+   * 3.項番2で「true」が返って来た場合、state配列を空に初期化
+   * </detai>
+   * 作成日：2022/03/30
+   * 作成者：渡邉
+   ********************************************************/
+  const onClickdelete = (findid, e) => {
+    const stateIndex = state.findIndex((value) => {
+      return value.id === findid; //指定のidのインデックスを検索
+    }); //対象レコードのインデックスを割り出す
+
+    console.log(stateIndex);
+
+    const delstate = [...state];
+    const delnewstate = delstate.splice(1, 1);
+    console.log(delstate);
+    setState(delnewstate);
+  };
+
   useEffect(() => {
-    console.log(state);
+    //console.log(state);
   }, [state]);
 
-  // データ
-  const rows = state;
-  // カラム
+  /********************************************************
+   * <summary>
+   * テーブルのカラム設定
+   * </summary>
+   * 作成日：2022/03/30
+   * 作成者：渡邉
+   ********************************************************/
   const columns = [
     {
       field: "id",
@@ -109,7 +175,11 @@ export const Salary = (props) => {
       width: 100,
       disableClickEventBubbling: true,
       renderCell: (params) => (
-        <Button variant="contained" color="primary">
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={(e) => onClickdelete(params.id, e)}
+        >
           削除
         </Button>
       )
@@ -130,7 +200,6 @@ export const Salary = (props) => {
     {
       field: "updateTime",
       headerName: "更新日時",
-      type: "datetime",
       editable: false,
       width: 150
     },
@@ -146,7 +215,7 @@ export const Salary = (props) => {
     <>
       <h1>給与一覧</h1>
       <div style={{ height: 800, width: "100%" }}>
-        <DataGrid rows={rows} columns={columns} pageSize={10} />
+        <DataGrid rows={state} columns={columns} />
       </div>
       <Box sx={{ width: 500, textAlign: "left" }}>
         <h3>勤務日</h3>
@@ -189,9 +258,7 @@ export const Salary = (props) => {
         />
         <h3>合計支給額</h3>
         <TextField
-          required
           name="sumprice"
-          label="必須"
           variant="outlined"
           type="number"
           value={sumprice}
@@ -231,15 +298,15 @@ export const Salary = (props) => {
     </>
   );
 };
-//初期値
+//newstateオブジェクトの期値
 Salary.defaultProps = {
   id: 0,
   workday: "",
   mattername: "",
   place: "",
   expectDate: "",
-  sumprice: 0,
+  sumprice: "",
   status: 1,
-  updateTime: createDate(),
+  updateTime: "",
   memo: ""
 };

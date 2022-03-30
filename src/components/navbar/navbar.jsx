@@ -11,8 +11,6 @@ import { theme } from "../../generalColor";
 import "./navbar.css";
 
 export const Hed = () => {
-  console.log(TopButton);
-
   //上のprimaryが効いてない
 
   return (
