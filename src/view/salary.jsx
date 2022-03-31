@@ -97,12 +97,33 @@ export const Salary = (props) => {
       return value.id === findid; //指定のidのインデックスを検索
     }); //対象レコードのインデックスを割り出す
 
-    console.log(stateIndex);
+    console.log(typeof stateIndex);
 
     const delstate = [...state];
+    console.log(state);
     const delnewstate = delstate.splice(1, 1);
-    console.log(delstate);
-    setState(delnewstate);
+    console.log(delnewstate);
+    //setState(delnewstate);
+  };
+  /********************************************************
+   * 概要：編集されたセルの値をstateへ反映し保持する
+   * 関数名：cellChange
+   * 引数：eventオブジェクト
+   * 戻り値：なし
+   * <detail>
+   * 1.cell編集終了後のstate配列をコピーし新たな配列へ格納
+   * 2.編集されたセルのidから対象のインデックスを取得
+   * 3.項番1の配列を項番2で取得したインデックスの対象オブジェクト要素を編集後の値で更新する
+   * 4.state配列を項番1の配列で更新する
+   * </detai>
+   * 作成日：2022/03/31
+   * 作成者：渡邉
+   ********************************************************/
+  const cellChange = (chValue) => {
+    const changeState = [...state];
+    const changeIndex = state.findIndex((v) => v.id === chValue.id);
+    changeState[changeIndex][chValue.field] = chValue.value;
+    setState(changeState);
   };
 
   useEffect(() => {
@@ -215,7 +236,12 @@ export const Salary = (props) => {
     <>
       <h1>給与一覧</h1>
       <div style={{ height: 800, width: "100%" }}>
-        <DataGrid rows={state} columns={columns} />
+        <DataGrid
+          rows={state}
+          columns={columns}
+          autoHeight
+          onCellEditCommit={cellChange}
+        />
       </div>
       <Box sx={{ width: 500, textAlign: "left" }}>
         <h3>勤務日</h3>
