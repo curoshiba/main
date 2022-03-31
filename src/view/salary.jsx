@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import { TextField, Box, Button } from "@material-ui/core";
 import createDate from "../assets/createDate";
+import { Toolbar } from "../assets/toolbar";
 
 export const Salary = (props) => {
   const [state, setState] = useState([]); //テーブルへ表示させる配列
@@ -252,6 +253,9 @@ export const Salary = (props) => {
           type="date"
           value={workday}
           onChange={onChangeState}
+          components={{
+            Toolbar: Toolbar
+          }}
         />
         <h3>案件名</h3>
         <TextField
