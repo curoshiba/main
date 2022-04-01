@@ -322,6 +322,7 @@ export const Salary = (props) => {
             fullWidth
             value={mattername}
             onChange={onChangeState}
+            onBlur={handleBlur}
           />
           {error.mattername && (
             <Alert severity="error">{error.mattername}</Alert>
@@ -337,6 +338,7 @@ export const Salary = (props) => {
             fullWidth
             value={place}
             onChange={onChangeState}
+            onBlur={handleBlur}
           />
           {error.place && <Alert severity="error">{error.place}</Alert>}
         </div>
@@ -349,6 +351,7 @@ export const Salary = (props) => {
             type="date"
             value={expectDate}
             onChange={onChangeState}
+            onBlur={handleBlur}
           />
           {error.expectDate && (
             <Alert severity="error">{error.expectDate}</Alert>
@@ -363,6 +366,7 @@ export const Salary = (props) => {
             value={sumprice}
             placeholder="数値を入力してください"
             onChange={onChangeState}
+            onBlur={handleBlur}
           />
           {error.sumprice && <Alert severity="error">{error.sumprice}</Alert>}
         </div>
