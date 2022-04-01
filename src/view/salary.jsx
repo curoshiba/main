@@ -242,6 +242,9 @@ export const Salary = (props) => {
           columns={columns}
           autoHeight
           onCellEditCommit={cellChange}
+          components={{
+            Toolbar: Toolbar
+          }}
         />
       </div>
       <Box sx={{ width: 500, textAlign: "left" }}>
@@ -253,9 +256,6 @@ export const Salary = (props) => {
           type="date"
           value={workday}
           onChange={onChangeState}
-          components={{
-            Toolbar: Toolbar
-          }}
         />
         <h3>案件名</h3>
         <TextField
