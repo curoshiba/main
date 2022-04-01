@@ -28,6 +28,7 @@ export const Toolbar = () => {
           fileName: "給与一覧_" + ymdString,
           utf8WithBom: true
         }}
+        printOptions={{ disableToolbarButton: true }}
       />
     </GridToolbarContainer>
   );

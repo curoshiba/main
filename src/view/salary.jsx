@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import { TextField, Box, Button } from "@material-ui/core";
+import Alert from "@mui/material/Alert";
 import createDate from "../assets/createDate";
 import { Toolbar } from "../assets/toolbar";
 
@@ -8,6 +9,7 @@ export const Salary = (props) => {
   const [state, setState] = useState([]); //テーブルへ表示させる配列
   const [newState, setNewState] = useState(props); //state配列へ追加するためのオブジェクトを管理するステイト
   const { workday, mattername, place, expectDate, sumprice, memo } = newState; //newStateを分割代入
+  const [error, setError] = useState({ flg: true, msg: "" });
   /********************************************************
    * 概要：テキストエリア入力時newStateオブジェクトを更新する
    * 関数名：onChangeState
@@ -49,15 +51,18 @@ export const Salary = (props) => {
    * 作成者：渡邉
    ********************************************************/
   const onClickAdd = () => {
-    //ID発行の関数
-    const lastid = state.length === 0 ? 1 : state.slice(-1)[0].id + 1; //項番1
-    const concaten = sumprice + "円";
-    const addID = { ...newState, id: lastid };
-    const updateymd = { ...addID, updateTime: createDate() };
-    const adden = { ...updateymd, sumprice: concaten };
-    const newArray = [...state, adden];
-    setState(newArray);
-    setNewState(props);
+    if (checkInput(newState)) {
+      //ID発行の関数
+      const lastid = state.length === 0 ? 1 : state.slice(-1)[0].id + 1; //項番1
+      const concaten = sumprice + "円";
+      const addID = { ...newState, id: lastid };
+      const updateymd = { ...addID, updateTime: createDate() };
+      const adden = { ...updateymd, sumprice: concaten };
+      const newArray = [...state, adden];
+      setState(newArray);
+      setNewState(props);
+    } else {
+    }
   };
 
   /********************************************************
@@ -98,12 +103,12 @@ export const Salary = (props) => {
       return value.id === findid; //指定のidのインデックスを検索
     }); //対象レコードのインデックスを割り出す
 
-    console.log(typeof stateIndex);
+    console.log(stateIndex);
 
     const delstate = [...state];
     console.log(state);
-    const delnewstate = delstate.splice(1, 1);
-    console.log(delnewstate);
+    //const delnewstate = delstate.splice(1, 1);
+    //console.log(delnewstate);
     //setState(delnewstate);
   };
   /********************************************************
@@ -126,10 +131,56 @@ export const Salary = (props) => {
     changeState[changeIndex][chValue.field] = chValue.value;
     setState(changeState);
   };
+  /********************************************************
+   * 概要：
+   * 関数名：checkInput
+   * 引数：配列オブジェクト
+   * 戻り値：bool
+   * <detail>
+   * 1.
+   * </detai>
+   * 作成日：2022/04/01
+   * 作成者：渡邉
+   ********************************************************/
+
+  const checkInput = (inputState) => {
+    let allResult = { result: true, point: 0 };
+    let { result, point } = allResult;
+    if (inputState.workday === "") {
+      result = false;
+      point = 1;
+    } else if (inputState.mattername === "") {
+      result = false;
+      point = 2;
+    } else if (inputState.place === "") {
+      result = false;
+      point = 3;
+    } else if (inputState.expectDate === "") {
+      result = false;
+      point = 4;
+    } else if (inputState.sumprice === "") {
+      result = false;
+      point = 5;
+    }
+    return result;
+  };
+
+  const handleBlur = (event) => {
+    const target = event.target;
+    const value = target.value;
+    const name = target.name;
+    console.log(typeof name);
+
+    if (value === "") {
+      setError({ ...error, [name]: "入力必須項目です" });
+    } else {
+      setError({ ...error, [name]: "" });
+    }
+  };
 
   useEffect(() => {
-    //console.log(state);
-  }, [state]);
+    console.log(error);
+  }, [error]);
 
   /********************************************************
    * <summary>
@@ -247,53 +298,74 @@ export const Salary = (props) => {
           }}
         />
       </div>
-      <Box sx={{ width: 500, textAlign: "left" }}>
-        <h3>勤務日</h3>
-        <TextField
-          required
-          name="workday"
-          variant="outlined"
-          type="date"
-          value={workday}
-          onChange={onChangeState}
-        />
-        <h3>案件名</h3>
-        <TextField
-          required
-          name="mattername"
-          label="必須"
-          variant="outlined"
-          fullWidth
-          value={mattername}
-          onChange={onChangeState}
-        />
-        <h3>勤務地</h3>
-        <TextField
-          required
-          name="place"
-          label="必須"
-          variant="outlined"
-          fullWidth
-          value={place}
-          onChange={onChangeState}
-        />
-        <h3>支払予定日</h3>
-        <TextField
-          required
-          name="expectDate"
-          variant="outlined"
-          type="date"
-          value={expectDate}
-          onChange={onChangeState}
-        />
-        <h3>合計支給額</h3>
-        <TextField
-          name="sumprice"
-          variant="outlined"
-          type="number"
-          value={sumprice}
-          onChange={onChangeState}
-        />
+      <Box sx={{ width: 500, textAlign: "left" }} noValidate>
+        <div>
+          <h3>勤務日</h3>
+          <TextField
+            required
+            name="workday"
+            variant="outlined"
+            type="date"
+            value={workday}
+            onChange={onChangeState}
+            onBlur={handleBlur}
+          />
+          {error.workday && <Alert severity="error">{error.workday}</Alert>}
+        </div>
+        <div>
+          <h3>案件名</h3>
+          <TextField
+            required
+            name="mattername"
+            label="必須"
+            variant="outlined"
+            fullWidth
+            value={mattername}
+            onChange={onChangeState}
+          />
+          {error.mattername && (
+            <Alert severity="error">{error.mattername}</Alert>
+          )}
+        </div>
+        <div>
+          <h3>勤務地</h3>
+          <TextField
+            required
+            name="place"
+            label="必須"
+            variant="outlined"
+            fullWidth
+            value={place}
+            onChange={onChangeState}
+          />
+          {error.place && <Alert severity="error">{error.place}</Alert>}
+        </div>
+        <div>
+          <h3>支払予定日</h3>
+          <TextField
+            required
+            name="expectDate"
+            variant="outlined"
+            type="date"
+            value={expectDate}
+            onChange={onChangeState}
+          />
+          {error.expectDate && (
+            <Alert severity="error">{error.expectDate}</Alert>
+          )}
+        </div>
+        <div>
+          <h3>合計支給額</h3>
+          <TextField
+            name="sumprice"
+            variant="outlined"
+            type="number"
+            value={sumprice}
+            placeholder="数値を入力してください"
+            onChange={onChangeState}
+          />
+          {error.sumprice && <Alert severity="error">{error.sumprice}</Alert>}
+        </div>
         <h3>備考</h3>
         <TextField
           name="memo"
@@ -310,6 +382,7 @@ export const Salary = (props) => {
             color="secondary"
             size="large"
             onClick={onClickAdd}
+            disabled={error.flg}
           >
             作成
           </Button>
