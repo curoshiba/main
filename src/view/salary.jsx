@@ -9,7 +9,9 @@ export const Salary = (props) => {
   const [state, setState] = useState([]); //テーブルへ表示させる配列
   const [newState, setNewState] = useState(props); //state配列へ追加するためのオブジェクトを管理するステイト
   const { workday, mattername, place, expectDate, sumprice, memo } = newState; //newStateを分割代入
-  const [error, setError] = useState({ flg: true, msg: "" });
+  const [error, setError] = useState({});
+  const [createFlag, setCreateFlag] = useState({ result: true });
+
   /********************************************************
    * 概要：テキストエリア入力時newStateオブジェクトを更新する
    * 関数名：onChangeState
@@ -51,18 +53,16 @@ export const Salary = (props) => {
    * 作成者：渡邉
    ********************************************************/
   const onClickAdd = () => {
-    if (checkInput(newState)) {
-      //ID発行の関数
-      const lastid = state.length === 0 ? 1 : state.slice(-1)[0].id + 1; //項番1
-      const concaten = sumprice + "円";
-      const addID = { ...newState, id: lastid };
-      const updateymd = { ...addID, updateTime: createDate() };
-      const adden = { ...updateymd, sumprice: concaten };
-      const newArray = [...state, adden];
-      setState(newArray);
-      setNewState(props);
-    } else {
-    }
+    //ID発行の関数
+    const lastid = state.length === 0 ? 1 : state.slice(-1)[0].id + 1; //項番1
+    const concaten = sumprice + "円";
+    const addID = { ...newState, id: lastid };
+    const updateymd = { ...addID, updateTime: createDate() };
+    const adden = { ...updateymd, sumprice: concaten };
+    const newArray = [...state, adden];
+    setState(newArray);
+    setNewState(props);
+    setCreateFlag({ result: true });
   };
 
   /********************************************************
@@ -144,43 +144,51 @@ export const Salary = (props) => {
    ********************************************************/
 
   const checkInput = (inputState) => {
-    let allResult = { result: true, point: 0 };
-    let { result, point } = allResult;
+    let allResult = { result: true, point: "" };
     if (inputState.workday === "") {
-      result = false;
-      point = 1;
+      allResult.result = false;
+      allResult.point = "勤務日";
+      return allResult;
     } else if (inputState.mattername === "") {
-      result = false;
-      point = 2;
+      allResult.result = false;
+      allResult.point.point = "案件名";
+      return allResult;
     } else if (inputState.place === "") {
-      result = false;
-      point = 3;
+      allResult.result = false;
+      allResult.point.point = "勤務地";
+      return allResult;
     } else if (inputState.expectDate === "") {
-      result = false;
-      point = 4;
+      allResult.result = false;
+      allResult.point.point = "支払予定日";
+      return allResult;
     } else if (inputState.sumprice === "") {
-      result = false;
-      point = 5;
+      allResult.result = false;
+      allResult.point.point = "合計支給額";
+      return allResult;
+    } else {
+      return allResult;
     }
-    return result;
   };
 
   const handleBlur = (event) => {
     const target = event.target;
     const value = target.value;
     const name = target.name;
-    console.log(typeof name);
 
     if (value === "") {
       setError({ ...error, [name]: "入力必須項目です" });
     } else {
       setError({ ...error, [name]: "" });
     }
+    const check = checkInput(newState);
+    if (check.result) {
+      setCreateFlag({ result: false });
+    }
   };
 
   useEffect(() => {
-    console.log(error);
-  }, [error]);
+    //console.log(allResult);
+  }, [state]);
 
   /********************************************************
    * <summary>
@@ -386,7 +394,7 @@ export const Salary = (props) => {
             color="secondary"
             size="large"
             onClick={onClickAdd}
-            disabled={error.flg}
+            disabled={createFlag.result}
           >
             作成
           </Button>
@@ -397,6 +405,7 @@ export const Salary = (props) => {
             color="primary"
             size="large"
             onClick={onClickAllDelete}
+            disabled={state.length === 0}
           >
             一括削除
           </Button>
