@@ -98,18 +98,18 @@ export const Salary = (props) => {
    * 作成日：2022/03/30
    * 作成者：渡邉
    ********************************************************/
-  const onClickdelete = (findid, e) => {
+  const onClickdelete = (findid) => {
+    console.log(findid);
     const stateIndex = state.findIndex((value) => {
       return value.id === findid; //指定のidのインデックスを検索
     }); //対象レコードのインデックスを割り出す
-
     console.log(stateIndex);
-
     const delstate = [...state];
-    console.log(state);
-    //const delnewstate = delstate.splice(1, 1);
-    //console.log(delnewstate);
-    //setState(delnewstate);
+    delstate.splice(stateIndex, 1); //対象の要素を削除
+    //No row with id #1 found　←エラー出るためseTimeoutを使用
+    setTimeout(() => {
+      setState(delstate);
+    }); //削除後のdelstateで更新
   };
   /********************************************************
    * 概要：編集されたセルの値をstateへ反映し保持する
@@ -259,7 +259,7 @@ export const Salary = (props) => {
         <Button
           variant="contained"
           color="primary"
-          onClick={(e) => onClickdelete(params.id, e)}
+          onClick={() => onClickdelete(params.id)}
         >
           削除
         </Button>
