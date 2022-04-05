@@ -5,10 +5,11 @@ import { MenuItem, Select, FormControl } from "@mui/material";
 
 export const ShiftList = () => {
   const [sift, setSift] = useState([{}]);
-  const [newsift, setNewSift] = useState({
+  /*const [newsift, setNewSift] = useState({
     date: "",
     status: 0
   });
+  */
   //当日の年、月を取得
   const yyyy = createDate().y;
   const mm = createDate().m;
@@ -44,8 +45,11 @@ export const ShiftList = () => {
   const mergeMonth = month.concat(nextmonth);
   //
 
-  const chaegeStatus = (e) => {
-    console.log(e);
+  const chaegeStatus = (index, event) => {
+    const value = event.target.value;
+    const newsift = [...sift];
+    newsift[index].status = value;
+    setSift(newsift);
   };
 
   useEffect(() => {
@@ -53,7 +57,7 @@ export const ShiftList = () => {
   }, []);
 
   useEffect(() => {
-    //console.log(sift);
+    console.log(sift);
   }, [sift]);
   return (
     <>
@@ -64,20 +68,20 @@ export const ShiftList = () => {
           <th>予定</th>
         </tr>
         {sift.map((value, index) => (
-          <tr key={value.date}>
+          <tr key={index}>
             <td>{value.date}</td>
             <td>
-              <FormControl fullWidth>
+              <FormControl fullWidth margin="normal">
                 <Select
                   name={value.date}
                   value={value.status}
                   label="status"
-                  onChange={chaegeStatus}
+                  onChange={(e) => chaegeStatus(index, e)}
                 >
                   <MenuItem value={0}>NG</MenuItem>
                   <MenuItem value={1}>終日OK</MenuItem>
                   <MenuItem value={2}>午前OK</MenuItem>
-                  <MenuItem value={2}>午後OK</MenuItem>
+                  <MenuItem value={3}>午後OK</MenuItem>
                 </Select>
               </FormControl>
             </td>
