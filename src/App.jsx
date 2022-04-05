@@ -2,6 +2,7 @@ import React from "react";
 import { Hed } from "./components/navbar/navbar.jsx";
 import { Main } from "./view/main";
 import { Salary } from "./view/salary";
+import { ShiftList } from "./view/shiftList";
 
 const App = () => {
   const IconSize = 120;
@@ -10,7 +11,7 @@ const App = () => {
     <>
       <Hed MenuName="TOP" /> {/*ヘッダ―*/}
       <div className="App">
-        <Salary /> {/*メイン画面*/}
+        <ShiftList /> {/*メイン画面*/}
       </div>
     </>
   );

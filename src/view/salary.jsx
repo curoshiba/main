@@ -4,13 +4,14 @@ import { TextField, Box, Button } from "@material-ui/core";
 import Alert from "@mui/material/Alert";
 import createDate from "../assets/createDate";
 import { Toolbar } from "../assets/toolbar";
+import DeleteIcon from "@mui/icons-material/DeleteOutlined";
 
 export const Salary = (props) => {
   const [state, setState] = useState([]); //テーブルへ表示させる配列
   const [newState, setNewState] = useState(props); //state配列へ追加するためのオブジェクトを管理するステイト
   const { workday, mattername, place, expectDate, sumprice, memo } = newState; //newStateを分割代入
-  const [error, setError] = useState({});
-  const [createFlag, setCreateFlag] = useState({ result: true });
+  const [error, setError] = useState({}); //入力チェックメッセージ
+  const [createFlag, setCreateFlag] = useState({ result: true }); //作成ボタン非活性フラグ
 
   /********************************************************
    * 概要：テキストエリア入力時newStateオブジェクトを更新する
@@ -57,7 +58,7 @@ export const Salary = (props) => {
     const lastid = state.length === 0 ? 1 : state.slice(-1)[0].id + 1; //項番1
     const concaten = sumprice + "円";
     const addID = { ...newState, id: lastid };
-    const updateymd = { ...addID, updateTime: createDate() };
+    const updateymd = { ...addID, updateTime: createDate().full };
     const adden = { ...updateymd, sumprice: concaten };
     const newArray = [...state, adden];
     setState(newArray);
@@ -92,25 +93,28 @@ export const Salary = (props) => {
    * 戻り値：なし
    * <detail>
    * 1.クリックされた削除ボタンのセルのidのインデックスを検索し変数へ格納
-   * 2.
-   * 3.項番2で「true」が返って来た場合、state配列を空に初期化
+   * 2.state配列をコピーし新たな配列へ格納
+   * 3.項番1のインデックスの要素を削除
+   * 4.削除後の配列でstateを更新
    * </detai>
    * 作成日：2022/03/30
    * 作成者：渡邉
    ********************************************************/
   const onClickdelete = (findid) => {
-    console.log(findid);
+    //指定のidのインデックスを検索
     const stateIndex = state.findIndex((value) => {
-      return value.id === findid; //指定のidのインデックスを検索
-    }); //対象レコードのインデックスを割り出す
-    console.log(stateIndex);
+      return value.id === findid;
+    });
     const delstate = [...state];
-    delstate.splice(stateIndex, 1); //対象の要素を削除
+    //対象の要素を削除
+    delstate.splice(stateIndex, 1);
+    //削除後のdelstateで更新
     //No row with id #1 found　←エラー出るためseTimeoutを使用
     setTimeout(() => {
       setState(delstate);
-    }); //削除後のdelstateで更新
+    });
   };
+
   /********************************************************
    * 概要：編集されたセルの値をstateへ反映し保持する
    * 関数名：cellChange
@@ -131,18 +135,24 @@ export const Salary = (props) => {
     changeState[changeIndex][chValue.field] = chValue.value;
     setState(changeState);
   };
+
   /********************************************************
-   * 概要：
-   * 関数名：checkInput
+   * 概要：テキストエリアの入力チェック
+   * 関数名：checkInput（親関数：handleBlur）
    * 引数：配列オブジェクト
-   * 戻り値：bool
+   * 戻り値：オブジェクト
    * <detail>
-   * 1.
+   * 1.チェックした結果（初期値：true）、箇所を格納するオブジェクトを定義
+   * 2.勤務日をチェック
+   * 3.案件名をチェック
+   * 4.勤務地をチェック
+   * 5.支払予定日をチェック
+   * 6.合計支給額をチェック
+   * 7.上記全てで問題無ければ初期値を返す
    * </detai>
-   * 作成日：2022/04/01
+   * 作成日：2022/04/04
    * 作成者：渡邉
    ********************************************************/
-
   const checkInput = (inputState) => {
     let allResult = { result: true, point: "" };
     if (inputState.workday === "") {
@@ -170,25 +180,37 @@ export const Salary = (props) => {
     }
   };
 
+  /********************************************************
+   * 概要：テキストエリアフォーカス後の入力チェック
+   * 関数名：handleBlur
+   * 引数：eventオブジェクト
+   * 戻り値：なし
+   * <detail>
+   * 1.eventオブジェクトのvalueを空白を削除して変数へ格納
+   * 2.ventオブジェクトのnameを変数へ格納
+   * 3.eventオブジェクトの値が空の場合、
+   *  errorのnameプロパティへ項番2のnameを格納
+   * 4.eventオブジェクトの値が空以外の場合、errorを初期化
+   * 5.項番4の後に入力チェックを行い正しい場合は作成ボタンのフラグを変更する
+   * </detai>
+   * 作成日：2022/04/04
+   * 作成者：渡邉
+   ********************************************************/
   const handleBlur = (event) => {
     const target = event.target;
-    const value = target.value;
+    const value = target.value.trim();
     const name = target.name;
 
     if (value === "") {
       setError({ ...error, [name]: "入力必須項目です" });
     } else {
       setError({ ...error, [name]: "" });
-    }
-    const check = checkInput(newState);
-    if (check.result) {
-      setCreateFlag({ result: false });
+      const check = checkInput(newState);
+      if (check.result) {
+        setCreateFlag({ result: false });
+      }
     }
   };
-
-  useEffect(() => {
-    //console.log(allResult);
-  }, [state]);
 
   /********************************************************
    * <summary>
@@ -244,38 +266,25 @@ export const Salary = (props) => {
     {
       field: "status",
       headerName: "ステータス",
+      type: "singleSelect",
       sortable: true,
       width: 150,
-      editable: false
+      editable: true,
+      valueOptions: ["振込済", "未振込"]
     },
     // 削除ボタン
     {
       field: "deleteBtn",
       headerName: "削除",
       sortable: false,
-      width: 100,
+      width: 50,
       disableClickEventBubbling: true,
       renderCell: (params) => (
-        <Button
+        <DeleteIcon
           variant="contained"
-          color="primary"
+          color="inherit"
           onClick={() => onClickdelete(params.id)}
-        >
-          削除
-        </Button>
-      )
-    },
-    // 詳細ボタン
-    {
-      field: "editBtn",
-      headerName: "詳細",
-      sortable: false,
-      width: 100,
-      disableClickEventBubbling: true,
-      renderCell: (params) => (
-        <Button variant="contained" color="primary">
-          詳細
-        </Button>
+        />
       )
     },
     {
@@ -422,7 +431,7 @@ Salary.defaultProps = {
   place: "",
   expectDate: "",
   sumprice: "",
-  status: 1,
+  status: "未振込",
   updateTime: "",
   memo: ""
 };

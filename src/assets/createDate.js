@@ -6,7 +6,7 @@ const createDate = () => {
   const hh = ymd.getHours();
   const mm = ymd.getMinutes();
   const concatYMD = `${yyyy}/${M}/${dd} ${hh}:${mm}`;
-  return concatYMD;
+  return { full: concatYMD, y: yyyy, m: M, d: dd, h: hh, mm: mm };
 };
 
 export default createDate;
