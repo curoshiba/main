@@ -1,15 +1,11 @@
 import { useEffect, useState } from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import createDate from "../assets/createDate";
-import { MenuItem, Select, FormControl } from "@mui/material";
+import { MenuItem, Select, FormControl, Container, Box } from "@mui/material";
 
 export const ShiftList = () => {
   const [sift, setSift] = useState([{}]);
-  /*const [newsift, setNewSift] = useState({
-    date: "",
-    status: 0
-  });
-  */
+
   //当日の年、月を取得
   const yyyy = createDate().y;
   const mm = createDate().m;
@@ -56,38 +52,46 @@ export const ShiftList = () => {
     setSift(mergeMonth);
   }, []);
 
-  useEffect(() => {
-    console.log(sift);
-  }, [sift]);
   return (
     <>
-      <h1>シフト提出</h1>
-      <table>
-        <tr>
-          <th>日付</th>
-          <th>予定</th>
-        </tr>
-        {sift.map((value, index) => (
-          <tr key={index}>
-            <td>{value.date}</td>
-            <td>
-              <FormControl fullWidth margin="normal">
-                <Select
-                  name={value.date}
-                  value={value.status}
-                  label="status"
-                  onChange={(e) => chaegeStatus(index, e)}
-                >
-                  <MenuItem value={0}>NG</MenuItem>
-                  <MenuItem value={1}>終日OK</MenuItem>
-                  <MenuItem value={2}>午前OK</MenuItem>
-                  <MenuItem value={3}>午後OK</MenuItem>
-                </Select>
-              </FormControl>
-            </td>
-          </tr>
-        ))}
-      </table>
+      <Container component="main" maxWidth="xs">
+        <h1>シフト提出</h1>
+        <Box
+          sx={{
+            marginTop: 8,
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center"
+          }}
+        >
+          <table>
+            <tr>
+              <th>日付</th>
+              <th>予定</th>
+            </tr>
+            {sift.map((value, index) => (
+              <tr key={index}>
+                <td>{value.date}</td>
+                <td>
+                  <FormControl fullWidth margin="normal">
+                    <Select
+                      name={value.date}
+                      value={value.status}
+                      label="status"
+                      onChange={(e) => chaegeStatus(index, e)}
+                    >
+                      <MenuItem value={0}>NG</MenuItem>
+                      <MenuItem value={1}>終日OK</MenuItem>
+                      <MenuItem value={2}>午前OK</MenuItem>
+                      <MenuItem value={3}>午後OK</MenuItem>
+                    </Select>
+                  </FormControl>
+                </td>
+              </tr>
+            ))}
+          </table>
+        </Box>
+      </Container>
     </>
   );
 };
