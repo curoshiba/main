@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import { Box, Button } from "@material-ui/core";
-
+import { ThemeProvider } from "@mui/material/styles";
+import { theme } from "../generalColor";
 import { Toolbar } from "../assets/toolbar";
 import DeleteIcon from "@mui/icons-material/DeleteOutlined";
 
@@ -169,37 +170,34 @@ export const Salary = (props) => {
 
   return (
     <>
-      <h1>給与一覧</h1>
-      <Box sx={{ mt: 5, margin: 5, display: "flex" }}>
-        <Button
-          variant="outlined"
-          color="secondary"
-          size="large"
-          onClick={onClickAllDelete}
-        >
-          登録
-        </Button>
-        <Button
-          variant="outlined"
-          color="primary"
-          size="large"
-          onClick={onClickAllDelete}
-          disabled={state.length === 0}
-        >
-          一括削除
-        </Button>
-      </Box>
-      <div style={{ height: 800, width: "100%" }}>
-        <DataGrid
-          rows={state}
-          columns={columns}
-          autoHeight
-          onCellEditCommit={cellChange}
-          components={{
-            Toolbar: Toolbar
-          }}
-        />
-      </div>
+      <ThemeProvider theme={theme}>
+        <h1>給与一覧</h1>
+        <Box sx={{ mt: 5, margin: 5, display: "flex" }}>
+          <Button variant="contained" color="secondary" size="large">
+            登録
+          </Button>
+          <Button
+            variant="outlined"
+            color="primary.main"
+            size="large"
+            onClick={onClickAllDelete}
+            disabled={state.length === 0}
+          >
+            一括削除
+          </Button>
+        </Box>
+        <div style={{ height: 800, width: "100%" }}>
+          <DataGrid
+            rows={state}
+            columns={columns}
+            autoHeight
+            onCellEditCommit={cellChange}
+            components={{
+              Toolbar: Toolbar
+            }}
+          />
+        </div>
+      </ThemeProvider>
     </>
   );
 };

@@ -8,9 +8,9 @@ import MenuIcon from "@mui/icons-material/Menu";
 import { ThemeProvider } from "@mui/material/styles";
 import { TopButton } from "../../assets/topbutton";
 import { theme } from "../../generalColor";
-import "./navbar.css";
+import "./header.css";
 
-export const Hed = () => {
+export const Header = () => {
   //上のprimaryが効いてない
 
   return (

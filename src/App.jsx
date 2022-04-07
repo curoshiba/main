@@ -1,5 +1,5 @@
 import React from "react";
-import { Hed } from "./components/navbar/navbar.jsx";
+import { Header } from "./components/header/header.jsx";
 import { Main } from "./view/main";
 import { Salary } from "./view/salary";
 import { ShiftList } from "./view/shiftList";
@@ -12,9 +12,9 @@ const App = () => {
 
   return (
     <>
-      <Hed MenuName="TOP" /> {/*ヘッダ―*/}
+      <Header /> {/*ヘッダ―*/}
       <div className="App">
-        <LogIn /> {/*メイン画面*/}
+        <SignUp /> {/*メイン画面*/}
       </div>
     </>
   );
