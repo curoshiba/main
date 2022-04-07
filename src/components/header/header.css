@@ -1,18 +1,24 @@
-.appBar {
+header {
   display: flex;
-  justify-content: center;
-  align-content: center;
+  align-items: center;
+  width: 100%;
+  background: #0d2280;
 }
 
-.menuText {
-  display: flex;
-  flex: 0;
+.title {
+  color: aliceblue;
+  margin-right: auto;
+  margin-left: 50px;
 }
 
-.logoutButton {
-  flex: 0;
+.menu {
+  margin-right: 50px;
 }
 
-.topButton {
-  align-self: cente;
+.logout {
+  margin-right: 20px;
+}
+
+.child {
+  padding: 5px;
 }
