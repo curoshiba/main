@@ -7,7 +7,9 @@ export const Header = () => {
   return (
     <ThemeProvider theme={theme}>
       <header>
-        <h1 className="title">title</h1>
+        <h1 className="title" href="">
+          title
+        </h1>
         <nav>
           <ButtonGroup
             variant="text"
@@ -16,17 +18,38 @@ export const Header = () => {
             color="text"
             className="menu"
           >
-            <Button className="child">マニュアル</Button>
-            <Button className="child">案件表</Button>
-            <Button className="child">時間割登録</Button>
-            <Button className="child">シフト提出</Button>
-            <Button className="child">注意事項</Button>
-            <Button className="child">シフト一覧</Button>
-            <Button className="child">給与一覧</Button>
-            <Button className="child">アンケート</Button>
+            <Button href="" className="child">
+              マニュアル
+            </Button>
+            <Button href="" className="child">
+              案件表
+            </Button>
+            <Button href="" className="child">
+              時間割登録
+            </Button>
+            <Button href="" className="child">
+              シフト提出
+            </Button>
+            <Button href="" className="child">
+              注意事項
+            </Button>
+            <Button href="" className="child">
+              シフト一覧
+            </Button>
+            <Button href="" lassName="child">
+              給与一覧
+            </Button>
+            <Button href="" className="child">
+              アンケート
+            </Button>
           </ButtonGroup>
         </nav>
-        <Button color="secondary" variant="contained" className="logout">
+        <Button
+          href=""
+          color="secondary"
+          variant="contained"
+          className="logout"
+        >
           Login
         </Button>
       </header>
