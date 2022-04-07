@@ -6,6 +6,7 @@ import { ShiftList } from "./view/shiftList";
 import { LogIn } from "./view/login";
 import { CreateSalary } from "./view/createSalary";
 import { SignUp } from "./view/signup";
+import { Manual } from "./view/manual";
 
 const App = () => {
   const IconSize = 120;
@@ -14,7 +15,7 @@ const App = () => {
     <>
       <Header /> {/*ヘッダ―*/}
       <div className="App">
-        <SignUp /> {/*メイン画面*/}
+        <Manual /> {/*メイン画面*/}
       </div>
     </>
   );
