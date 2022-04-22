@@ -7,7 +7,7 @@ export const Header = () => {
   return (
     <ThemeProvider theme={theme}>
       <header>
-        <h1 className="title" href="">
+        <h1 className="title" href="/main">
           title
         </h1>
         <nav>
@@ -18,7 +18,7 @@ export const Header = () => {
             color="text"
             className="menu"
           >
-            <Button href="" className="child">
+            <Button href="manual" className="child">
               マニュアル
             </Button>
             <Button href="" className="child">
@@ -27,7 +27,7 @@ export const Header = () => {
             <Button href="" className="child">
               時間割登録
             </Button>
-            <Button href="" className="child">
+            <Button href="shiftlist" className="child">
               シフト提出
             </Button>
             <Button href="" className="child">
@@ -36,7 +36,7 @@ export const Header = () => {
             <Button href="" className="child">
               シフト一覧
             </Button>
-            <Button href="" lassName="child">
+            <Button href="salary" lassName="child">
               給与一覧
             </Button>
             <Button href="" className="child">
@@ -45,12 +45,12 @@ export const Header = () => {
           </ButtonGroup>
         </nav>
         <Button
-          href=""
+          href="/"
           color="secondary"
           variant="contained"
           className="logout"
         >
-          Login
+          logout
         </Button>
       </header>
     </ThemeProvider>

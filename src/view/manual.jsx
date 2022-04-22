@@ -1,10 +1,20 @@
-import "./manual.css";
-import { Container, CssBaseline } from "@mui/material/";
+import { Container, CssBaseline, Box } from "@mui/material/";
+import Image from "../assets/rice-terraces-gdd8d064db_1920.jpg";
+import { Header } from "../components/header/header";
+
+const styles = {
+  Container: {
+    backgroundImage: `url(${Image})`
+  }
+};
 
 export const Manual = () => {
   return (
-    <Container component="main" maxWidth="xs" className="body">
-      <CssBaseline />
-    </Container>
+    <>
+      <Header />
+      <Box style={styles.Container}>
+        <CssBaseline />
+      </Box>
+    </>
   );
 };

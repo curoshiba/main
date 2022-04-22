@@ -130,7 +130,7 @@ export const SignUp = () => {
             </Button>
             <Grid container justifyContent="center">
               <Grid item>
-                <Link href="#" variant="body2">
+                <Link href="/" variant="body2">
                   すでにアカウントをお持ちの方はこちら
                 </Link>
               </Grid>

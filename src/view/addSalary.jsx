@@ -2,8 +2,9 @@ import { TextField, Box, Button } from "@material-ui/core";
 import React, { useState } from "react";
 import { Alert, Container } from "@mui/material";
 import createDate from "../assets/createDate";
+import { Header } from "../components/header/header";
 
-export const CreateSalary = (props) => {
+export const AddSalary = (props) => {
   const [newState, setNewState] = useState(props); //state配列へ追加するためのオブジェクトを管理するステイト
   const { workday, mattername, place, expectDate, sumprice, memo } = newState; //newStateを分割代入
   const [error, setError] = useState({}); //入力チェックメッセージ
@@ -139,106 +140,109 @@ export const CreateSalary = (props) => {
   };
 
   return (
-    <Container maxWidth="xs">
-      <Box sx={{ width: 500, textAlign: "left" }} noValidate>
-        <div>
-          <h3>勤務日</h3>
+    <>
+      <Header />
+      <Container maxWidth="xs">
+        <Box sx={{ width: 500, textAlign: "left" }} noValidate>
+          <div>
+            <h3>勤務日</h3>
+            <TextField
+              required
+              name="workday"
+              variant="outlined"
+              type="date"
+              value={workday}
+              onChange={onChangeState}
+              onBlur={handleBlur}
+            />
+            {error.workday && <Alert severity="error">{error.workday}</Alert>}
+          </div>
+          <div>
+            <h3>案件名</h3>
+            <TextField
+              required
+              name="mattername"
+              label="必須"
+              variant="outlined"
+              fullWidth
+              value={mattername}
+              onChange={onChangeState}
+              onBlur={handleBlur}
+            />
+            {error.mattername && (
+              <Alert severity="error">{error.mattername}</Alert>
+            )}
+          </div>
+          <div>
+            <h3>勤務地</h3>
+            <TextField
+              required
+              name="place"
+              label="必須"
+              variant="outlined"
+              fullWidth
+              value={place}
+              onChange={onChangeState}
+              onBlur={handleBlur}
+            />
+            {error.place && <Alert severity="error">{error.place}</Alert>}
+          </div>
+          <div>
+            <h3>支払予定日</h3>
+            <TextField
+              required
+              name="expectDate"
+              variant="outlined"
+              type="date"
+              value={expectDate}
+              onChange={onChangeState}
+              onBlur={handleBlur}
+            />
+            {error.expectDate && (
+              <Alert severity="error">{error.expectDate}</Alert>
+            )}
+          </div>
+          <div>
+            <h3>合計支給額</h3>
+            <TextField
+              name="sumprice"
+              variant="outlined"
+              type="number"
+              value={sumprice}
+              placeholder="数値を入力してください"
+              onChange={onChangeState}
+              onBlur={handleBlur}
+            />
+            {error.sumprice && <Alert severity="error">{error.sumprice}</Alert>}
+          </div>
+          <h3>備考</h3>
           <TextField
-            required
-            name="workday"
-            variant="outlined"
-            type="date"
-            value={workday}
-            onChange={onChangeState}
-            onBlur={handleBlur}
-          />
-          {error.workday && <Alert severity="error">{error.workday}</Alert>}
-        </div>
-        <div>
-          <h3>案件名</h3>
-          <TextField
-            required
-            name="mattername"
-            label="必須"
+            name="memo"
+            multiline
+            maxRows={4}
             variant="outlined"
             fullWidth
-            value={mattername}
+            value={memo}
             onChange={onChangeState}
-            onBlur={handleBlur}
           />
-          {error.mattername && (
-            <Alert severity="error">{error.mattername}</Alert>
-          )}
-        </div>
-        <div>
-          <h3>勤務地</h3>
-          <TextField
-            required
-            name="place"
-            label="必須"
-            variant="outlined"
-            fullWidth
-            value={place}
-            onChange={onChangeState}
-            onBlur={handleBlur}
-          />
-          {error.place && <Alert severity="error">{error.place}</Alert>}
-        </div>
-        <div>
-          <h3>支払予定日</h3>
-          <TextField
-            required
-            name="expectDate"
-            variant="outlined"
-            type="date"
-            value={expectDate}
-            onChange={onChangeState}
-            onBlur={handleBlur}
-          />
-          {error.expectDate && (
-            <Alert severity="error">{error.expectDate}</Alert>
-          )}
-        </div>
-        <div>
-          <h3>合計支給額</h3>
-          <TextField
-            name="sumprice"
-            variant="outlined"
-            type="number"
-            value={sumprice}
-            placeholder="数値を入力してください"
-            onChange={onChangeState}
-            onBlur={handleBlur}
-          />
-          {error.sumprice && <Alert severity="error">{error.sumprice}</Alert>}
-        </div>
-        <h3>備考</h3>
-        <TextField
-          name="memo"
-          multiline
-          maxRows={4}
-          variant="outlined"
-          fullWidth
-          value={memo}
-          onChange={onChangeState}
-        />
-        <Box sx={{ mt: 5 }}>
-          <Button
-            variant="outlined"
-            color="secondary"
-            size="large"
-            onClick={onClickAdd}
-            disabled={createFlag.result}
-          >
-            作成
-          </Button>
+          <Box sx={{ mt: 5 }}>
+            <Button
+              variant="outlined"
+              color="secondary"
+              size="large"
+              onClick={onClickAdd}
+              disabled={createFlag.result}
+            >
+              作成
+            </Button>
+          </Box>
         </Box>
-      </Box>
-    </Container>
+      </Container>
+    </>
   );
 };
 //newstateオブジェクトの期値
-CreateSalary.defaultProps = {
+AddSalary.defaultProps = {
   id: 0,
   workday: "",
   mattername: "",

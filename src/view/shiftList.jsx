@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import createDate from "../assets/createDate";
 import { MenuItem, Select, FormControl, Container, Box } from "@mui/material";
+import { Header } from "../components/header/header";
 
 export const ShiftList = () => {
   const [sift, setSift] = useState([{}]);
@@ -54,8 +55,9 @@ export const ShiftList = () => {
 
   return (
     <>
+      <Header />
+      <h1 style={{ textAlign: "center" }}>シフト提出</h1>
       <Container component="main" maxWidth="xs">
-        <h1>シフト提出</h1>
         <Box
           sx={{
             marginTop: 8,

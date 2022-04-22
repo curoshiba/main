@@ -5,6 +5,7 @@ import { ThemeProvider } from "@mui/material/styles";
 import { theme } from "../generalColor";
 import { Toolbar } from "../assets/toolbar";
 import DeleteIcon from "@mui/icons-material/DeleteOutlined";
+import { Header } from "../components/header/header";
 
 export const Salary = (props) => {
   const [state, setState] = useState([]); //テーブルへ表示させる配列
@@ -170,10 +171,16 @@ export const Salary = (props) => {
 
   return (
     <>
+      <Header />
       <ThemeProvider theme={theme}>
         <h1>給与一覧</h1>
         <Box sx={{ mt: 5, margin: 5, display: "flex" }}>
-          <Button variant="contained" color="secondary" size="large">
+          <Button
+            href="/addsalary"
+            variant="contained"
+            color="secondary"
+            size="large"
+          >
             登録
           </Button>
           <Button

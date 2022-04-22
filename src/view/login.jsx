@@ -96,6 +96,7 @@ export const LogIn = () => {
               type="submit"
               fullWidth
               variant="contained"
+              href="/main" //一時的に認証せずメイン画面へ飛ぶ
               sx={{ mt: 3, mb: 2 }}
             >
               LogIn
@@ -107,8 +108,8 @@ export const LogIn = () => {
                 </Link>
               </Grid>
               <Grid item>
-                <Link href="#" variant="body2">
-                  {"Don't have an account? Sign Up"}
+                <Link href="/signup" variant="body2">
+                  {"新規登録　SignUp"}
                 </Link>
               </Grid>
             </Grid>
