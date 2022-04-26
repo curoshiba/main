@@ -27,11 +27,11 @@ const iconStyle = {
 };
 
 const ItemButtonStyle = {
-  maxWidth: 100
+  display: "flex",
+  alignItems: "center"
 };
 
-export const Main = (props) => {
-  const { iconsize } = props;
+export const Main = () => {
   return (
     <>
       <Header />
@@ -54,8 +54,12 @@ export const Main = (props) => {
               alignItems: "center"
             }}
           >
-            <ListItem>
-              <ListItemButton sx={ItemButtonStyle} href="/manual">
+            <ListItem style={{ display: "block" }}>
+              <ListItemButton
+                style={ItemButtonStyle}
+                href="manual"
+                component="a"
+              >
                 <ListItemIcon sx={iconStyle}>
                   <LibraryBooksRoundedIcon fontSize="large" />
                   <ListItemText primary="マニュアル" />
@@ -63,7 +67,7 @@ export const Main = (props) => {
               </ListItemButton>
             </ListItem>
             <ListItem>
-              <ListItemButton sx={ItemButtonStyle}>
+              <ListItemButton sx={ItemButtonStyle} component="a">
                 <ListItemIcon sx={iconStyle}>
                   <FeedRoundedIcon fontSize="large" />
                   <ListItemText primary="案件表" />
@@ -71,7 +75,7 @@ export const Main = (props) => {
               </ListItemButton>
             </ListItem>
             <ListItem>
-              <ListItemButton sx={ItemButtonStyle}>
+              <ListItemButton sx={ItemButtonStyle} component="a">
                 <ListItemIcon sx={iconStyle}>
                   <AccessAlarmsRoundedIcon fontSize="large" />
                   <ListItemText primary="時間割登録" />
@@ -79,7 +83,11 @@ export const Main = (props) => {
               </ListItemButton>
             </ListItem>
             <ListItem>
-              <ListItemButton sx={ItemButtonStyle} href="shiftlist">
+              <ListItemButton
+                sx={ItemButtonStyle}
+                href="shiftlist"
+                component="a"
+              >
                 <ListItemIcon sx={iconStyle}>
                   <BackupRoundedIcon fontSize="large" />
                   <ListItemText primary="シフト提出" />
@@ -87,7 +95,7 @@ export const Main = (props) => {
               </ListItemButton>
             </ListItem>
             <ListItem>
-              <ListItemButton sx={ItemButtonStyle}>
+              <ListItemButton sx={ItemButtonStyle} component="a">
                 <ListItemIcon sx={iconStyle}>
                   <InfoRoundedIcon fontSize="large" />
                   <ListItemText primary="注意事項" />
@@ -95,7 +103,7 @@ export const Main = (props) => {
               </ListItemButton>
             </ListItem>
             <ListItem>
-              <ListItemButton sx={ItemButtonStyle}>
+              <ListItemButton sx={ItemButtonStyle} component="a">
                 <ListItemIcon sx={iconStyle}>
                   <FormatListBulletedRoundedIcon fontSize="large" />
                   <ListItemText primary="シフト一覧" />
@@ -103,7 +111,7 @@ export const Main = (props) => {
               </ListItemButton>
             </ListItem>
             <ListItem>
-              <ListItemButton sx={ItemButtonStyle} href="salary">
+              <ListItemButton sx={ItemButtonStyle} href="salary" component="a">
                 <ListItemIcon sx={iconStyle}>
                   <CurrencyYenRoundedIcon fontSize="large" />
                   <ListItemText primary="給与一覧" />
@@ -111,7 +119,7 @@ export const Main = (props) => {
               </ListItemButton>
             </ListItem>
             <ListItem>
-              <ListItemButton sx={ItemButtonStyle}>
+              <ListItemButton sx={ItemButtonStyle} component="a">
                 <ListItemIcon sx={iconStyle}>
                   <QuestionAnswerRoundedIcon fontSize="large" />
                   <ListItemText primary="アンケート" />

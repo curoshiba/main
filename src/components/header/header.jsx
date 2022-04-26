@@ -1,6 +1,5 @@
 import { ThemeProvider } from "@mui/material/styles";
 import { theme } from "../../generalColor";
-import "./header.css";
 import { Button, ButtonGroup, Box } from "@mui/material";
 
 const titleButton = {
@@ -13,31 +12,28 @@ const child = {
   p: "5px"
 };
 
+const headerStyle = {
+  display: "flex",
+  alignItems: "center",
+  backgroundColor: "#0d2280"
+};
+
 export const Header = () => {
   return (
     <ThemeProvider theme={theme}>
-      <header>
+      <header style={headerStyle}>
         <Box sx={titleButton}>
           <Button href="main">
-            <h1
-              style={{
-                color: "aliceblue",
-                "&:hover": {
-                  opacity: 0.5
-                }
-              }}
-            >
-              title
-            </h1>
+            <h1 style={{ color: "aliceblue" }}>title</h1>
           </Button>
         </Box>
         <nav>
           <ButtonGroup
             variant="text"
-            aria-label="text button group"
             size="large"
             color="text"
-            className="menu"
+            disableElevation="true"
+            style={{ marginRight: "50px", marginLeft: "auto" }}
           >
             <Button href="manual" style={child}>
               マニュアル
@@ -65,7 +61,7 @@ export const Header = () => {
             </Button>
           </ButtonGroup>
         </nav>
-        <Box className="logout">
+        <Box style={{ marginRight: "20px" }}>
           <Button href="/" color="secondary" variant="contained">
             logout
           </Button>

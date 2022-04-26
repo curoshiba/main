@@ -173,13 +173,14 @@ export const Salary = (props) => {
     <>
       <Header />
       <ThemeProvider theme={theme}>
-        <h1>給与一覧</h1>
+        <h1 style={{ textAlign: "center" }}>給与一覧</h1>
         <Box sx={{ mt: 5, margin: 5, display: "flex" }}>
           <Button
             href="/addsalary"
             variant="contained"
             color="secondary"
             size="large"
+            style={{ marginRight: "10px" }}
           >
             登録
           </Button>
