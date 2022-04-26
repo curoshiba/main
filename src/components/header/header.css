@@ -5,19 +5,13 @@ header {
   background: #0d2280;
 }
 
-.title {
-  color: aliceblue;
-  margin-right: auto;
-  margin-left: 50px;
-  cursor: pointer;
-}
-
 .title:hover {
   opacity: 0.5;
 }
 
 .menu {
   margin-right: 50px;
+  margin-left: auto;
 }
 
 .logout {
