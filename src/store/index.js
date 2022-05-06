@@ -1,7 +1,9 @@
 import { createStore } from "redux";
 
-//初期値は空配列
-const reducer = (state = []) => {
+//初期値
+const iniState = {};
+
+const reducer = (state = iniState) => {
   return state;
 };
 
