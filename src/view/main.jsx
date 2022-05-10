@@ -17,7 +17,8 @@ import ListItemText from "@mui/material/ListItemText";
 
 //main画面のcssプロパティ
 const mainStyle = {
-  textAlign: "center"
+  textAlign: "center",
+  marginTop: "50px"
 };
 
 const iconStyle = {
