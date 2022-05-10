@@ -12,7 +12,7 @@ import QuestionAnswerRoundedIcon from "@mui/icons-material/QuestionAnswerRounded
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
-import ListItemIcon from "@mui/material/ListItemIcon";
+
 import ListItemText from "@mui/material/ListItemText";
 
 //main画面のcssプロパティ
@@ -23,111 +23,87 @@ const mainStyle = {
 const iconStyle = {
   display: "flex",
   flexDirection: "column",
-  alignItems: "center"
-};
-
-const ItemButtonStyle = {
-  display: "flex",
-  alignItems: "center"
+  alignItems: "center",
+  width: "120px"
 };
 
 export const Main = () => {
   return (
     <>
       <Header />
-      <h1 style={{ textAlign: "center" }}>処理選択</h1>
+      <h1 style={mainStyle}>処理選択</h1>
       <Container maxWidth="md">
         <CssBaseline />
-        <Box
+
+        <List
           sx={{
             backgroundColor: "#e6e6e6",
             width: "100%",
-            maxWidth: 1000,
-            Height: 600
+            display: "flex",
+            justifycontent: "center",
+            alignItems: "center"
           }}
         >
-          <List
-            sx={{
-              display: "flex",
-              flexwrap: "wrap",
-              justifycontent: "center",
-              alignItems: "center"
-            }}
-          >
-            <ListItem style={{ display: "block" }}>
-              <ListItemButton
-                style={ItemButtonStyle}
-                href="manual"
-                component="a"
-              >
-                <ListItemIcon sx={iconStyle}>
-                  <LibraryBooksRoundedIcon fontSize="large" />
-                  <ListItemText primary="マニュアル" />
-                </ListItemIcon>
-              </ListItemButton>
-            </ListItem>
-            <ListItem>
-              <ListItemButton sx={ItemButtonStyle} component="a">
-                <ListItemIcon sx={iconStyle}>
-                  <FeedRoundedIcon fontSize="large" />
-                  <ListItemText primary="案件表" />
-                </ListItemIcon>
-              </ListItemButton>
-            </ListItem>
-            <ListItem>
-              <ListItemButton sx={ItemButtonStyle} component="a">
-                <ListItemIcon sx={iconStyle}>
-                  <AccessAlarmsRoundedIcon fontSize="large" />
-                  <ListItemText primary="時間割登録" />
-                </ListItemIcon>
-              </ListItemButton>
-            </ListItem>
-            <ListItem>
-              <ListItemButton
-                sx={ItemButtonStyle}
-                href="shiftlist"
-                component="a"
-              >
-                <ListItemIcon sx={iconStyle}>
-                  <BackupRoundedIcon fontSize="large" />
-                  <ListItemText primary="シフト提出" />
-                </ListItemIcon>
-              </ListItemButton>
-            </ListItem>
-            <ListItem>
-              <ListItemButton sx={ItemButtonStyle} component="a">
-                <ListItemIcon sx={iconStyle}>
-                  <InfoRoundedIcon fontSize="large" />
-                  <ListItemText primary="注意事項" />
-                </ListItemIcon>
-              </ListItemButton>
-            </ListItem>
-            <ListItem>
-              <ListItemButton sx={ItemButtonStyle} component="a">
-                <ListItemIcon sx={iconStyle}>
-                  <FormatListBulletedRoundedIcon fontSize="large" />
-                  <ListItemText primary="シフト一覧" />
-                </ListItemIcon>
-              </ListItemButton>
-            </ListItem>
-            <ListItem>
-              <ListItemButton sx={ItemButtonStyle} href="salary" component="a">
-                <ListItemIcon sx={iconStyle}>
-                  <CurrencyYenRoundedIcon fontSize="large" />
-                  <ListItemText primary="給与一覧" />
-                </ListItemIcon>
-              </ListItemButton>
-            </ListItem>
-            <ListItem>
-              <ListItemButton sx={ItemButtonStyle} component="a">
-                <ListItemIcon sx={iconStyle}>
-                  <QuestionAnswerRoundedIcon fontSize="large" />
-                  <ListItemText primary="アンケート" />
-                </ListItemIcon>
-              </ListItemButton>
-            </ListItem>
-          </List>
-        </Box>
+          <ListItem>
+            <ListItemButton href="manual" component="a" sx={iconStyle}>
+              <LibraryBooksRoundedIcon fontSize="large" />
+              <ListItemText primary="マニュアル" />
+            </ListItemButton>
+          </ListItem>
+          <ListItem>
+            <ListItemButton href="/" component="a" sx={iconStyle}>
+              <FeedRoundedIcon fontSize="large" />
+              <ListItemText primary="案件表" />
+            </ListItemButton>
+          </ListItem>
+          <ListItem>
+            <ListItemButton href="/" component="a" sx={iconStyle}>
+              <AccessAlarmsRoundedIcon fontSize="large" />
+              <ListItemText primary="時間割登録" />
+            </ListItemButton>
+          </ListItem>
+          <ListItem>
+            <ListItemButton href="shiftlist" component="a" sx={iconStyle}>
+              <BackupRoundedIcon fontSize="large" />
+              <ListItemText primary="シフト提出" />
+            </ListItemButton>
+          </ListItem>
+        </List>
+        <List
+          sx={{
+            backgroundColor: "#e6e6e6",
+            width: "100%",
+            display: "flex",
+            justifycontent: "center",
+            alignItems: "center"
+          }}
+        >
+          <ListItem>
+            <ListItemButton href="/" component="a" sx={iconStyle}>
+              <InfoRoundedIcon fontSize="large" />
+              <ListItemText primary="注意事項" />
+            </ListItemButton>
+          </ListItem>
+          <ListItem>
+            <ListItemButton href="/" component="a" sx={iconStyle}>
+              <FormatListBulletedRoundedIcon fontSize="large" />
+              <ListItemText primary="シフト一覧" />
+            </ListItemButton>
+          </ListItem>
+          <ListItem>
+            <ListItemButton href="salary" component="a" sx={iconStyle}>
+              <CurrencyYenRoundedIcon fontSize="large" />
+              <ListItemText primary="給与一覧" />
+            </ListItemButton>
+          </ListItem>
+          <ListItem>
+            <ListItemButton href="/" component="a" sx={iconStyle}>
+              <QuestionAnswerRoundedIcon fontSize="large" />
+              <ListItemText primary="アンケート" />
+            </ListItemButton>
+          </ListItem>
+        </List>
+
         <div className="Notice" style={mainStyle}>
           <h2>お知らせ</h2>
           <textarea className="NoticeArea" disabled>
