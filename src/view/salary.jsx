@@ -1,14 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { DataGrid } from "@mui/x-data-grid";
-import { Box, Button } from "@material-ui/core";
-import { ThemeProvider } from "@mui/material/styles";
-import { theme } from "../generalColor";
 import { Toolbar } from "../assets/toolbar";
 import DeleteIcon from "@mui/icons-material/DeleteOutlined";
 import { Header } from "../components/header/header";
+import { CssBaseline, Box, Button } from "@mui/material";
+import { useSelector, useDispatch } from "react-redux";
 
-export const Salary = (props) => {
-  const [state, setState] = useState([]); //テーブルへ表示させる配列
+export const Salary = () => {
+  const SalaryState = useSelector((state) => state); //テーブルへ表示させる配列そstoreから取得
+  const dispatch = useDispatch();
 
   /********************************************************
    * 概要：テーブルを一括で削除（stateを空配列）
@@ -18,49 +18,39 @@ export const Salary = (props) => {
    * <detail>
    * 1.state配列の要素数を取得
    * 2.項番1の値を含めて削除確認画面を表示
-   * 3.項番2で「true」が返って来た場合、state配列を空に初期化
+   * 3.項番2で「true」が返って来た場合dispatch実行
    * </detai>
-   * 作成日：2022/03/30
+   * 作成日：2022/05/11
    * 作成者：渡邉
    ********************************************************/
   const onClickAllDelete = () => {
-    const cnt = state.length;
+    const cnt = SalaryState.length;
     const yn = window.confirm(cnt + "件全て削除してよろしいですか？");
-    const result = yn ? setState([]) : state;
-    return result;
+    yn ? dispatch({ type: "ALLDELETE" }) : SalaryState;
   };
 
   /********************************************************
-   * 概要：削除ボタンクリック後に対象レコードを削除
+   * 概要：削除ボタンクリック後に対象レコードのidをreducerへ渡す
    * 関数名：onClickdelete
-   * 引数：なし
+   * 引数：id
    * 戻り値：なし
    * <detail>
    * 1.クリックされた削除ボタンのセルのidのインデックスを検索し変数へ格納
-   * 2.state配列をコピーし新たな配列へ格納
-   * 3.項番1のインデックスの要素を削除
-   * 4.削除後の配列でstateを更新
-   * </detai>
-   * 作成日：2022/03/30
+   * 2.dispatchでreducerへ渡す
+   * </detail>
+   * 作成日：2022/05/11
    * 作成者：渡邉
    ********************************************************/
   const onClickdelete = (findid) => {
     //指定のidのインデックスを検索
-    const stateIndex = state.findIndex((value) => {
+    const stateIndex = SalaryState.findIndex((value) => {
       return value.id === findid;
     });
-    const delstate = [...state];
-    //対象の要素を削除
-    delstate.splice(stateIndex, 1);
-    //削除後のdelstateで更新
-    //No row with id #1 found　←エラー出るためseTimeoutを使用
-    setTimeout(() => {
-      setState(delstate);
-    });
+    dispatch({ type: "DELETE", payload: stateIndex });
   };
 
   /********************************************************
-   * 概要：編集されたセルの値をstateへ反映し保持する
+   * 概要：編集されたセルの値とidをオブジェクトでreducerへ渡す
    * 関数名：cellChange
    * 引数：eventオブジェクト
    * 戻り値：なし
@@ -74,10 +64,10 @@ export const Salary = (props) => {
    * 作成者：渡邉
    ********************************************************/
   const cellChange = (chValue) => {
-    const changeState = [...state];
-    const changeIndex = state.findIndex((v) => v.id === chValue.id);
+    const changeState = [...SalaryState];
+    const changeIndex = SalaryState.findIndex((v) => v.id === chValue.id);
     changeState[changeIndex][chValue.field] = chValue.value;
-    setState(changeState);
+    //setState(changeState);
   };
 
   /********************************************************
@@ -172,40 +162,39 @@ export const Salary = (props) => {
   return (
     <>
       <Header />
-      <ThemeProvider theme={theme}>
-        <h1 style={{ textAlign: "center" }}>給与一覧</h1>
-        <Box sx={{ mt: 5, margin: 5, display: "flex" }}>
-          <Button
-            href="/addsalary"
-            variant="contained"
-            color="secondary"
-            size="large"
-            style={{ marginRight: "10px" }}
-          >
-            登録
-          </Button>
-          <Button
-            variant="outlined"
-            color="primary.main"
-            size="large"
-            onClick={onClickAllDelete}
-            disabled={state.length === 0}
-          >
-            一括削除
-          </Button>
-        </Box>
-        <div style={{ height: 800, width: "100%" }}>
-          <DataGrid
-            rows={state}
-            columns={columns}
-            autoHeight
-            onCellEditCommit={cellChange}
-            components={{
-              Toolbar: Toolbar
-            }}
-          />
-        </div>
-      </ThemeProvider>
+      <CssBaseline />
+      <h1 style={{ textAlign: "center" }}>給与一覧</h1>
+      <Box sx={{ mt: 5, margin: 5, display: "flex" }}>
+        <Button
+          href="/addsalary"
+          variant="contained"
+          color="primary"
+          size="large"
+          style={{ marginRight: "10px" }}
+        >
+          登録
+        </Button>
+        <Button
+          variant="outlined"
+          color="primary"
+          size="large"
+          onClick={onClickAllDelete}
+          disabled={SalaryState.length === 0}
+        >
+          一括削除
+        </Button>
+      </Box>
+      <div style={{ height: 800, width: "100%" }}>
+        <DataGrid
+          rows={SalaryState}
+          columns={columns}
+          autoHeight
+          onCellEditCommit={cellChange}
+          components={{
+            Toolbar: Toolbar
+          }}
+        />
+      </div>
     </>
   );
 };
