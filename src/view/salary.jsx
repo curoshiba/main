@@ -8,6 +8,7 @@ import { useSelector, useDispatch } from "react-redux";
 
 export const Salary = () => {
   const SalaryState = useSelector((state) => state); //テーブルへ表示させる配列そstoreから取得
+  console.log(store.getState());
   const dispatch = useDispatch();
 
   /********************************************************

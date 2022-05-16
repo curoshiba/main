@@ -3,14 +3,13 @@ import { createStore } from "redux";
 //初期値
 const iniState = [];
 
-const reducer = (state = iniState, action) => {
+const reducer = (state = [], action) => {
   switch (action.type) {
     case "ADD":
-      return action.payload;
+      //console.log([...state, action.payload]);
+      return [...state, action.payload];
     case "ALLDELETE":
-      return {
-        count: state.count - 1
-      };
+      return [];
     case "DELETE":
       return {
         count: state.count - 1
@@ -24,6 +23,4 @@ const reducer = (state = iniState, action) => {
   }
 };
 
-const store = createStore(reducer);
-
-export default store;
+export const store = createStore(reducer);
