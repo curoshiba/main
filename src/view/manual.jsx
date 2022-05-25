@@ -12,6 +12,7 @@ export const Manual = () => {
   return (
     <>
       <Header />
+      <h1>マニュアル</h1>
       <Box style={styles.Container}>
         <CssBaseline />
       </Box>
